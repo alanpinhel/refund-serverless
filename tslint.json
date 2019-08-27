@@ -58,7 +58,9 @@
       "rxjs",
       "@angular/platform-browser",
       "@angular/core/testing",
-      "@angular/router/testing"
+      "@angular/router/testing",
+      "@angular/common/http",
+      "@angular/fire/functions"
     ],
     "extends": ["tslint:latest", "tslint-config-prettier"]
   }
