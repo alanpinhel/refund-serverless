@@ -1,8 +1,8 @@
-import { Component } from '@angular/core'
-import { Store, select } from '@ngrx/store'
-
-import { RefundState, addRefund, addRefundSuccess } from '@app/store'
+import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
+
+import { Refund } from '@app/core'
+import { RefundDispatchers, RefundSelectors } from '@app/store'
 
 @Component({
   selector: 'app-refunds',
@@ -10,17 +10,15 @@ import { Observable } from 'rxjs'
   styleUrls: ['./refunds.component.scss'],
 })
 export class RefundsComponent {
-  refunds$: Observable<RefundState>
+  refunds$: Observable<Refund[]>
+  loading$: Observable<boolean>
 
-  constructor(private store: Store<{ refunds: RefundState }>) {
-    this.refunds$ = store.pipe(select('refunds'))
-    this.refunds$.subscribe(console.log)
+  constructor(private refundDispatchers: RefundDispatchers, private refundSelectors: RefundSelectors) {
+    this.refunds$ = this.refundSelectors.refunds$
+    this.loading$ = this.refundSelectors.loading$
   }
 
   add() {
-    this.store.dispatch(addRefund())
-    this.store.dispatch(
-      addRefundSuccess({ refund: { date: 1, id: 'as', reason: 'trip' } })
-    )
+    this.refundDispatchers.addRefund({ id: '1', date: 123, reason: 'Trip' })
   }
 }

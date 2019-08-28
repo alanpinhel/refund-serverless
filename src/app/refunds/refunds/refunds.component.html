@@ -1,7 +1,3 @@
-<ul>
-  <li *ngFor="let refund of (refunds$ | async).refunds">
-    {{ refund | json }}
-  </li>
-</ul>
+{{ refunds$ | async | json }}
 
 <button (click)="add()">Add</button>

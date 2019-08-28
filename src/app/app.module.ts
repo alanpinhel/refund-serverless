@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AngularFireModule } from '@angular/fire'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
 
 import { environment } from '@env/environment'
 import { CoreModule } from './core'
-import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
+import { AppRoutingModule } from './app-routing.module'
 import { AppStoreModule } from './store/app-store.module'
-import { refundReducer } from './store'
 
 @NgModule({
   imports: [
@@ -19,7 +20,9 @@ import { refundReducer } from './store'
     AppRoutingModule,
     AppStoreModule,
     AngularFireModule.initializeApp(environment.firebase),
-    StoreModule.forRoot({ refunds: refundReducer }),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
