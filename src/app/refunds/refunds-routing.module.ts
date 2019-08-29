@@ -3,9 +3,7 @@ import { Routes, RouterModule } from '@angular/router'
 
 import { RefundsComponent } from './refunds/refunds.component'
 
-const routes: Routes = [
-  { path: '', pathMatch: 'full', component: RefundsComponent },
-]
+const routes: Routes = [{ path: '', pathMatch: 'full', component: RefundsComponent }]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -5,8 +5,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'refunds' },
   {
     path: 'refunds',
-    loadChildren: () =>
-      import('./refunds/refunds.module').then(m => m.RefundsModule),
+    loadChildren: () => import('./refunds/refunds.module').then(m => m.RefundsModule),
   },
 ]
 

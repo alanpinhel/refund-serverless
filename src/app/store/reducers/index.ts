@@ -1,10 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store'
 
-import { RefundState } from './refund.reducer'
+import { Refund } from '@app/core'
 import * as fromRefunds from './refund.reducer'
 
 export interface EntityState {
-  refunds: RefundState
+  refunds: Refund[]
 }
 
 export const reducers: ActionReducerMap<EntityState> = {

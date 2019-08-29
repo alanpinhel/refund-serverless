@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AngularFireModule } from '@angular/fire'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { StoreModule } from '@ngrx/store'
-import { EffectsModule } from '@ngrx/effects'
 
 import { environment } from '@env/environment'
 import { CoreModule } from './core'
@@ -21,7 +20,6 @@ import { AppStoreModule } from './store/app-store.module'
     AppStoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   declarations: [AppComponent],
