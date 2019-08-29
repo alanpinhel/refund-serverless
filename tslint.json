@@ -19,12 +19,7 @@
     "member-ordering": [
       true,
       {
-        "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
-        ]
+        "order": ["static-field", "instance-field", "static-method", "instance-method"]
       }
     ],
     "no-consecutive-blank-lines": false,
@@ -55,12 +50,15 @@
     "use-pipe-transform-interface": true,
     "no-submodule-imports": [
       true,
-      "rxjs",
       "@angular/platform-browser",
+      "@angular/platform-browser-dynamic/testing",
       "@angular/core/testing",
       "@angular/router/testing",
       "@angular/common/http",
-      "@angular/fire/functions"
+      "@angular/fire/functions",
+      "rxjs",
+      "zone.js/dist/zone",
+      "zone.js/dist/zone-testing"
     ],
     "extends": ["tslint:latest", "tslint-config-prettier"]
   }
