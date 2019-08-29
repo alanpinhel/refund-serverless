@@ -1,0 +1,75 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$ref-blue: (
+  50: #e1e7ff,
+  100: #b3c3ff,
+  200: #819bff,
+  300: #4f72ff,
+  400: #2954ff,
+  500: #0336ff,
+  600: #0330ff,
+  700: #0229ff,
+  800: #0222ff,
+  900: #0116ff,
+  A100: #ffffff,
+  A200: #f2f3ff,
+  A400: #bfc2ff,
+  A700: #a6aaff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$ref-yellow: (
+  50: #fffbe1,
+  100: #fff5b3,
+  200: #ffef81,
+  300: #ffe84f,
+  400: #ffe329,
+  500: #ffde03,
+  600: #ffda03,
+  700: #ffd502,
+  800: #ffd102,
+  900: #ffc801,
+  A100: #ffffff,
+  A200: #fffcf2,
+  A400: #fff0bf,
+  A700: #ffe9a6,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$ref-primary: mat-palette($ref-blue);
+$ref-accent: mat-palette($ref-yellow);
+$ref-theme: mat-light-theme($ref-primary, $ref-accent);
+
+@include angular-material-theme($ref-theme);

@@ -1,5 +1,7 @@
 {{ refunds$ | async | json }}
 
-<button (click)="add()">Add</button>
-<button (click)="update()">Update</button>
-<button (click)="delete()">Delete</button>
+<div style="display: flex; flex-direction: column">
+  <button mat-stroked-button color="primary" (click)="add()">Add</button>
+  <button mat-stroked-button color="accent" (click)="update()">Update</button>
+  <button mat-stroked-button color="warn" (click)="delete()">Delete</button>
+</div>
