@@ -2,7 +2,7 @@
 
 @include mat-core();
 
-$ref-blue: (
+$app-palette-blue: (
   50: #e1e7ff,
   100: #b3c3ff,
   200: #819bff,
@@ -35,7 +35,7 @@ $ref-blue: (
   ),
 );
 
-$ref-yellow: (
+$app-palette-yellow: (
   50: #fffbe1,
   100: #fff5b3,
   200: #ffef81,
@@ -68,8 +68,8 @@ $ref-yellow: (
   ),
 );
 
-$ref-primary: mat-palette($ref-blue);
-$ref-accent: mat-palette($ref-yellow);
-$ref-theme: mat-light-theme($ref-primary, $ref-accent);
+$app-primary: mat-palette($app-palette-blue);
+$app-accent: mat-palette($app-palette-yellow);
+$app-theme: mat-light-theme($app-primary, $app-accent);
 
-@include angular-material-theme($ref-theme);
+@include angular-material-theme($app-theme);

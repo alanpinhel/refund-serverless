@@ -51,14 +51,14 @@
     "no-submodule-imports": [
       true,
       "@angular/platform-browser",
-      "@angular/platform-browser-dynamic/testing",
-      "@angular/core/testing",
-      "@angular/router/testing",
-      "@angular/common/http",
-      "@angular/fire/functions",
+      "@angular/platform-browser-dynamic",
+      "@angular/core",
+      "@angular/router",
+      "@angular/common",
+      "@angular/fire",
+      "@angular/cdk",
       "rxjs",
-      "zone.js/dist/zone",
-      "zone.js/dist/zone-testing"
+      "zone.js/dist"
     ],
     "extends": ["tslint:latest", "tslint-config-prettier"]
   }

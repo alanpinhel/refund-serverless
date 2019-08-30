@@ -1,0 +1,11 @@
+.mat-table {
+  td.mat-cell,
+  td.mat-footer-cell,
+  th.mat-header-cell {
+    padding: 8px;
+  }
+
+  .mat-cell {
+    white-space: nowrap;
+  }
+}

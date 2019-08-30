@@ -1,7 +1,5 @@
-{{ refunds$ | async | json }}
+<app-refund-list [refunds]="refunds$ | async"></app-refund-list>
 
-<div style="display: flex; flex-direction: column">
-  <button mat-stroked-button color="primary" (click)="add()">Add</button>
-  <button mat-stroked-button color="accent" (click)="update()">Update</button>
-  <button mat-stroked-button color="warn" (click)="delete()">Delete</button>
-</div>
+<button mat-fab aria-label="New Refund" [style.right.px]="rightFAB" (click)="add()">
+  <mat-icon>add</mat-icon>
+</button>

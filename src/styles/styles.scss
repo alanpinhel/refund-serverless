@@ -1,13 +1,27 @@
-html,
-body {
+@import './theme';
+@import './material';
+
+html {
   height: 100%;
+  width: 100%;
+  background-color: mat-color($app-primary, 'A200');
 }
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  min-height: 100%;
   width: 100%;
   max-width: 425px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 16px;
   box-sizing: border-box;
+  background-color: mat-color($app-primary, 500);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.full {
+  width: 100%;
 }

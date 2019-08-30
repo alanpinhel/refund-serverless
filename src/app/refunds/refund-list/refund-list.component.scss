@@ -1,0 +1,10 @@
+:host {
+  .mat-elevation-z1 {
+    overflow-x: auto;
+  }
+
+  .mat-table {
+    width: 100%;
+    min-width: 320px;
+  }
+}
