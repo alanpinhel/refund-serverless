@@ -17,7 +17,7 @@ const spacingFAB = 16
 })
 export class RefundsComponent implements OnInit {
   refunds$: Observable<Refund[]>
-  rightFAB = 1
+  rightFAB = 0
 
   constructor(
     private refundDispatchers: RefundDispatchers,
@@ -51,10 +51,10 @@ export class RefundsComponent implements OnInit {
   }
 
   update() {
-    this.refundDispatchers.updateRefund({ date: 123, id: '1', reason: 'trip to Salvador', status: 'draft' })
+    this.refundDispatchers.updateRefund({ date: 123, id: 1, reason: 'trip to Salvador', status: 'draft' })
   }
 
   delete() {
-    this.refundDispatchers.deleteRefund({ date: 1, id: '1', reason: 'trip', status: 'draft' })
+    this.refundDispatchers.deleteRefund({ date: 1, id: 1, reason: 'trip', status: 'draft' })
   }
 }

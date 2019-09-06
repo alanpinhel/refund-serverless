@@ -1,5 +1,5 @@
 export class Refund {
-  id: string
+  id: number | null
   date: number
   reason: string
   status: string

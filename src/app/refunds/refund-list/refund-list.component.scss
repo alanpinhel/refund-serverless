@@ -1,6 +1,40 @@
+@import '../../../styles/theme';
+
 :host {
-  .mat-elevation-z1 {
+  .wrapper-table {
     overflow-x: auto;
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 8px;
+    background-color: white;
+    overflow-x: auto;
+
+    &.selected {
+      background-color: mat-color($app-accent, 50);
+
+      .mat-body {
+        color: mat-color($app-accent, 500);
+      }
+    }
+
+    ::ng-deep {
+      .mat-chip-list-wrapper {
+        flex-wrap: nowrap;
+
+        .mat-chip {
+          white-space: nowrap;
+
+          .mat-icon {
+            margin-left: -10px;
+            margin-right: 4px;
+          }
+        }
+      }
+    }
   }
 
   .mat-table {

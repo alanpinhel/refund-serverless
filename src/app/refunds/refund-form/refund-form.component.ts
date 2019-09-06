@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { MatDialogRef } from '@angular/material'
-import * as uuid from 'uuid'
 
 import { Refund } from '@app/core'
 
@@ -22,7 +21,7 @@ export class RefundFormComponent {
     const { reason } = this
 
     if (reason) {
-      const newRefund: Refund = { date: new Date().getTime(), id: uuid.v1(), status: 'draft', reason }
+      const newRefund: Refund = { date: new Date().getTime(), id: null, status: 'Draft', reason }
       this.dialogRef.close(newRefund)
     }
   }

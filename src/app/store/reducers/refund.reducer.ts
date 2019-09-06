@@ -7,7 +7,10 @@ export const initialState: Refund[] = []
 
 const refundReducer = createReducer(
   initialState,
-  on(RefundActions.addRefund, (state, { refund }) => [...state, refund]),
+  on(RefundActions.addRefund, (state, { refund }) => {
+    const lastRefund = [...state].sort((a, b) => b.id - a.id)[0]
+    return [...state, { ...refund, id: lastRefund ? lastRefund.id + 1 : 1 }]
+  }),
   on(RefundActions.updateRefund, (state, { refund }) => state.map(r => (r.id === refund.id ? { ...r, ...refund } : r))),
   on(RefundActions.deleteRefund, (state, { refund }) => state.filter(r => r.id !== refund.id))
 )

@@ -8,6 +8,10 @@ import {
   MatInputModule,
   MatPaginatorModule,
   MatCheckboxModule,
+  MatMenuModule,
+  MatChipsModule,
+  MatAutocompleteModule,
+  MatDividerModule,
 } from '@angular/material'
 
 @NgModule({
@@ -20,6 +24,10 @@ import {
     MatInputModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    MatMenuModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDividerModule,
   ],
   exports: [
     MatButtonModule,
@@ -30,6 +38,10 @@ import {
     MatInputModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    MatMenuModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatDividerModule,
   ],
 })
 export class MaterialModule {}

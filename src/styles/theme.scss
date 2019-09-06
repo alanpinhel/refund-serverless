@@ -35,32 +35,32 @@ $app-palette-blue: (
   ),
 );
 
-$app-palette-yellow: (
-  50: #fffbe1,
-  100: #fff5b3,
-  200: #ffef81,
-  300: #ffe84f,
-  400: #ffe329,
-  500: #ffde03,
-  600: #ffda03,
-  700: #ffd502,
-  800: #ffd102,
-  900: #ffc801,
+$app-palette-orange: (
+  50: #ffe8e0,
+  100: #ffc5b3,
+  200: #ff9e80,
+  300: #ff774d,
+  400: #ff5a26,
+  500: #ff3d00,
+  600: #ff3700,
+  700: #ff2f00,
+  800: #ff2700,
+  900: #ff1a00,
   A100: #ffffff,
-  A200: #fffcf2,
-  A400: #fff0bf,
-  A700: #ffe9a6,
+  A200: #fff3f2,
+  A400: #ffc3bf,
+  A700: #ffaba6,
   contrast: (
     50: #000000,
     100: #000000,
     200: #000000,
     300: #000000,
     400: #000000,
-    500: #000000,
-    600: #000000,
-    700: #000000,
-    800: #000000,
-    900: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
     A100: #000000,
     A200: #000000,
     A400: #000000,
@@ -69,7 +69,7 @@ $app-palette-yellow: (
 );
 
 $app-primary: mat-palette($app-palette-blue);
-$app-accent: mat-palette($app-palette-yellow);
+$app-accent: mat-palette($app-palette-orange);
 $app-theme: mat-light-theme($app-primary, $app-accent);
 
 @include angular-material-theme($app-theme);

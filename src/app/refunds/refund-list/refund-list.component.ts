@@ -14,6 +14,10 @@ export class RefundListComponent {
   displayedColumns = ['select', 'id', 'date', 'status', 'reason']
   selection = new SelectionModel<Refund>(true, [])
 
+  get numSelected() {
+    return this.selection.selected.length
+  }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length
     const numRows = this.refunds.length

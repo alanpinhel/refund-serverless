@@ -15,7 +15,6 @@ body {
   margin: 0 auto;
   padding: 16px;
   box-sizing: border-box;
-  background-color: mat-color($app-primary, 500);
 }
 
 .uppercase {
@@ -24,4 +23,8 @@ body {
 
 .full {
   width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
