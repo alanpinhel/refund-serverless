@@ -4,7 +4,7 @@
   </ng-container>
 
   <ng-template #headerRowSelected>
-    <app-refund-action [numSelected]="numSelected"></app-refund-action>
+    <app-refund-action [numSelected]="numSelected" (delete)="delete()"></app-refund-action>
   </ng-template>
 
   <app-refund-list
@@ -12,8 +12,8 @@
     [columns]="columns"
     [selection]="selection"
     [numSelected]="numSelected"
-    [isAllSelected]="isAllSelected"
     [masterToggle]="masterToggle"
+    [isAllSelected]="isAllSelected"
   ></app-refund-list>
 </div>
 

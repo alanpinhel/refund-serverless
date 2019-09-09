@@ -49,8 +49,6 @@ import { Refund } from '@app/core'
         <tr mat-row *matRowDef="let row; columns: columns" (click)="selection.toggle(row)"></tr>
       </table>
     </div>
-
-    <mat-paginator [length]="30" [pageSize]="10" hidePageSize></mat-paginator>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

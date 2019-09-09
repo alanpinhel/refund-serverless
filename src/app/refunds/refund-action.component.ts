@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
+import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core'
 
 @Component({
   selector: 'app-refund-action',
@@ -6,10 +6,10 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
     <div class="header-row selected">
       <span class="mat-body">{{ numSelected }} selected</span>
       <span class="spacer"></span>
-      <button *ngIf="numSelected === 1" mat-icon-button>
+      <button *ngIf="numSelected === 1" mat-icon-button (click)="view.next()">
         <mat-icon>visibility</mat-icon>
       </button>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="delete.next()">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -18,4 +18,6 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
 })
 export class RefundActionComponent {
   @Input() numSelected: number
+  @Output() view = new EventEmitter()
+  @Output() delete = new EventEmitter()
 }

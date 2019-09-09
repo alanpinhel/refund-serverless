@@ -6,6 +6,7 @@ import { SubSink } from 'subsink'
 import { Refund, RefundFilter } from '@app/core'
 import { RefundDispatchers, RefundSelectors } from '@app/store'
 import { RefundFormComponent } from '../refund-form.component'
+import { RefundConfirmComponent } from '../refund-confirm.component'
 
 @Component({
   selector: 'app-refunds',
@@ -14,7 +15,7 @@ import { RefundFormComponent } from '../refund-form.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RefundsComponent implements OnInit, OnDestroy {
-  refunds: Refund[]
+  refunds: Refund[] = []
   allRefunds: Refund[] = []
   subs = new SubSink()
   columns = ['select', 'id', 'date', 'status', 'reason']
@@ -65,9 +66,23 @@ export class RefundsComponent implements OnInit, OnDestroy {
   }
 
   add() {
-    this.dialog
+    this.subs.sink = this.dialog
       .open(RefundFormComponent)
       .afterClosed()
-      .subscribe(refund => refund && this.refundDispatchers.addRefund(refund))
+      .subscribe((refund: Refund) => refund && this.refundDispatchers.addRefund(refund))
+  }
+
+  delete() {
+    this.subs.sink = this.dialog
+      .open(RefundConfirmComponent)
+      .afterClosed()
+      .subscribe(
+        (res: boolean) =>
+          res &&
+          this.selection.selected.forEach(r => {
+            this.selection.deselect(r)
+            this.refundDispatchers.deleteRefund(r)
+          })
+      )
   }
 }
