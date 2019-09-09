@@ -1,5 +1,22 @@
-<app-refund-list [refunds]="refunds$ | async"></app-refund-list>
+<div class="mat-elevation-z1">
+  <ng-container *ngIf="!numSelected; else headerRowSelected">
+    <app-refund-filter [statusList]="statusList" (filter)="handleFilter()"></app-refund-filter>
+  </ng-container>
 
-<button mat-fab aria-label="New Refund" [style.right.px]="rightFAB" (click)="add()">
+  <ng-template #headerRowSelected>
+    <app-refund-action [numSelected]="numSelected"></app-refund-action>
+  </ng-template>
+
+  <app-refund-list
+    [refunds]="refunds"
+    [columns]="columns"
+    [selection]="selection"
+    [numSelected]="numSelected"
+    [isAllSelected]="isAllSelected"
+    [masterToggle]="masterToggle"
+  ></app-refund-list>
+</div>
+
+<button mat-fab appAdjustPositionFAB aria-label="New Refund" (click)="add()">
   <mat-icon>add</mat-icon>
 </button>

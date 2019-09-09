@@ -1,60 +1,73 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core'
+import { SelectionModel } from '@angular/cdk/collections'
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core'
 import { MatDialog } from '@angular/material'
-import { Observable } from 'rxjs'
-import ResizeObserver from 'resize-observer-polyfill'
+import { SubSink } from 'subsink'
 
-import { Refund } from '@app/core'
+import { Refund, RefundFilter } from '@app/core'
 import { RefundDispatchers, RefundSelectors } from '@app/store'
-import { RefundFormComponent } from '../refund-form/refund-form.component'
-
-const maxWidthBody = 425
-const spacingFAB = 16
+import { RefundFormComponent } from '../refund-form.component'
 
 @Component({
   selector: 'app-refunds',
   templateUrl: './refunds.component.html',
   styleUrls: ['./refunds.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundsComponent implements OnInit {
-  refunds$: Observable<Refund[]>
-  rightFAB = 0
+export class RefundsComponent implements OnInit, OnDestroy {
+  refunds: Refund[]
+  allRefunds: Refund[] = []
+  subs = new SubSink()
+  columns = ['select', 'id', 'date', 'status', 'reason']
+  selection = new SelectionModel<Refund>(true, [])
+  statusList: RefundFilter[] = [
+    { id: 'Draft', selected: true },
+    { id: 'Confirmed', selected: false },
+    { id: 'Approved', selected: false },
+    { id: 'Authorized', selected: false },
+    { id: 'Paid out', selected: false },
+  ]
 
   constructor(
     private refundDispatchers: RefundDispatchers,
     private refundSelectors: RefundSelectors,
     private dialog: MatDialog,
     private cd: ChangeDetectorRef
-  ) {
-    this.refunds$ = this.refundSelectors.refunds$
-  }
+  ) {}
 
   ngOnInit() {
-    const ro = new ResizeObserver(entries => {
-      const { width } = entries[0].contentRect
-      if (width > maxWidthBody) {
-        this.rightFAB = (width - maxWidthBody) / 2 + spacingFAB
-      } else {
-        this.rightFAB = spacingFAB
-      }
-      this.cd.detectChanges()
+    this.subs.sink = this.refundSelectors.refunds$.subscribe(refunds => {
+      this.allRefunds = refunds
+      this.handleFilter()
     })
-    ro.observe(document.querySelector('html'))
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe()
+  }
+
+  get numSelected() {
+    return this.selection.selected.length
+  }
+
+  isAllSelected() {
+    const numRows = this.refunds.length
+    return this.numSelected === numRows
+  }
+
+  masterToggle() {
+    this.isAllSelected() ? this.selection.clear() : this.refunds.forEach(row => this.selection.select(row))
+  }
+
+  handleFilter() {
+    const selectedStatusList = this.statusList.filter(s => s.selected).map(s => s.id)
+    this.refunds = this.allRefunds.filter(r => selectedStatusList.includes(r.status))
+    this.cd.detectChanges()
   }
 
   add() {
     this.dialog
       .open(RefundFormComponent)
       .afterClosed()
-      .subscribe(refund => {
-        refund && this.refundDispatchers.addRefund(refund)
-      })
-  }
-
-  update() {
-    this.refundDispatchers.updateRefund({ date: 123, id: 1, reason: 'trip to Salvador', status: 'draft' })
-  }
-
-  delete() {
-    this.refundDispatchers.deleteRefund({ date: 1, id: 1, reason: 'trip', status: 'draft' })
+      .subscribe(refund => refund && this.refundDispatchers.addRefund(refund))
   }
 }
