@@ -6,10 +6,10 @@ import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from 
     <div class="header-row selected">
       <span class="mat-body">{{ numSelected }} selected</span>
       <span class="spacer"></span>
-      <button *ngIf="numSelected === 1" mat-icon-button (click)="view.next()">
+      <button *ngIf="numSelected === 1" mat-icon-button (click)="view.emit()">
         <mat-icon>visibility</mat-icon>
       </button>
-      <button mat-icon-button (click)="delete.next()">
+      <button mat-icon-button (click)="delete.emit()">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

@@ -7,12 +7,7 @@ import { RefundFilter } from '@app/core'
   template: `
     <div class="header-row">
       <mat-chip-list [multiple]="true">
-        <mat-chip
-          *ngFor="let status of statusList"
-          [selected]="status.selected"
-          (click)="status.selected = !status.selected"
-          (selectionChange)="filter.next()"
-        >
+        <mat-chip *ngFor="let status of statusList" [selected]="status.selected" (click)="onFilter(status)">
           <mat-icon *ngIf="status.selected">check</mat-icon> {{ status.id }}
         </mat-chip>
       </mat-chip-list>
@@ -23,4 +18,9 @@ import { RefundFilter } from '@app/core'
 export class RefundFilterComponent {
   @Input() statusList: RefundFilter[]
   @Output() filter = new EventEmitter<RefundFilter[]>()
+
+  onFilter(status: RefundFilter) {
+    status.selected = !status.selected
+    this.filter.emit()
+  }
 }

@@ -46,7 +46,7 @@ import { Refund } from '@app/core'
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
-        <tr mat-row *matRowDef="let row; columns: columns" (click)="selection.toggle(row)"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns"></tr>
       </table>
     </div>
   `,

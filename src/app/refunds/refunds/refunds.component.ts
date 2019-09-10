@@ -62,7 +62,7 @@ export class RefundsComponent implements OnInit, OnDestroy {
   handleFilter() {
     const selectedStatusList = this.statusList.filter(s => s.selected).map(s => s.id)
     this.refunds = this.allRefunds.filter(r => selectedStatusList.includes(r.status))
-    this.cd.detectChanges()
+    this.cd.markForCheck()
   }
 
   add() {
