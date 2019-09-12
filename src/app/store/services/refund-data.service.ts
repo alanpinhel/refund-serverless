@@ -1,17 +1,44 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { map, catchError } from 'rxjs/operators'
+import { Observable, throwError } from 'rxjs'
 
-import { environment } from '@env/environment'
 import { Refund } from '@app/core'
+import { environment } from '@env/environment'
+import { DataServiceError } from '../config'
+
+const API = `${environment.api}/refunds`
 
 @Injectable()
 export class RefundDataService {
-  readonly api = environment.api
-
   constructor(private http: HttpClient) {}
 
   getRefunds(): Observable<Refund[]> {
-    return this.http.get<Array<Refund>>(`${this.api}/refunds`)
+    return this.http.get<Array<Refund>>(API).pipe(catchError(this.handleError()))
+  }
+
+  addRefund(refund: Refund): Observable<Refund> {
+    return this.http.post<Refund>(API, refund).pipe(catchError(this.handleError(refund)))
+  }
+
+  updateRefund(refund: Refund): Observable<Refund> {
+    return this.http.put(API, refund).pipe(
+      map(() => refund),
+      catchError(this.handleError(refund))
+    )
+  }
+
+  deleteRefund(refund: Refund): Observable<Refund> {
+    return this.http.delete(API).pipe(
+      map(() => refund),
+      catchError(this.handleError(refund))
+    )
+  }
+
+  private handleError<T>(requestData?: T) {
+    return (res: HttpErrorResponse) => {
+      const error = new DataServiceError(res.error, requestData)
+      return throwError(error)
+    }
   }
 }

@@ -14,18 +14,19 @@ function getRefunds(_req: Request, res: Response) {
       })
       res.status(200).json(refunds)
     })
-    .catch((err: Error) => {
+    .catch((err: any) => {
       res.status(500).send(err)
     })
 }
 
 function postRefund(req: Request, res: Response) {
+  const partialRefund = { date: new Date().getTime(), status: 'Draft', reason: req.body.reason }
   db.collection('refunds')
-    .add({ date: new Date().getTime(), status: 'Draft', reason: req.body.reason })
+    .add(partialRefund)
     .then((doc: any) => {
-      res.status(200).send(doc.id)
+      res.status(200).send({ id: doc.id, ...partialRefund })
     })
-    .catch((err: Error) => {
+    .catch((err: any) => {
       res.status(500).send(err)
     })
 }
@@ -37,7 +38,7 @@ function putRefund(req: Request, res: Response) {
     .then(() => {
       res.status(200).send()
     })
-    .catch((err: Error) => {
+    .catch((err: any) => {
       res.status(500).send(err)
     })
 }
@@ -49,7 +50,7 @@ function deleteRefund(req: Request, res: Response) {
     .then(() => {
       res.status(200).send()
     })
-    .catch((err: Error) => {
+    .catch((err: any) => {
       res.status(500).send(err)
     })
 }
