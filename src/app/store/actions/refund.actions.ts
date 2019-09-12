@@ -2,8 +2,6 @@ import { createAction, props } from '@ngrx/store'
 
 import { Refund } from '@app/core'
 
-export const addRefund = createAction('[Refund] Add Refund', props<{ refund: Refund }>())
-
-export const updateRefund = createAction('[Refund] Update Refund', props<{ refund: Refund }>())
-
-export const deleteRefund = createAction('[Refund] Delete Refund', props<{ refund: Refund }>())
+export const getRefunds = createAction('[Refund] Get Refunds')
+export const getRefundsError = createAction('[Hero] Get Refunds Error', props<{ error: any }>())
+export const getRefundsSuccess = createAction('[Hero] Get Refunds Success', props<{ refunds: Refund[] }>())

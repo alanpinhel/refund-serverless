@@ -2,6 +2,6 @@ export * from './actions'
 export * from './reducers'
 export * from './services'
 
-import { RefundDispatchers, RefundSelectors } from './services'
+import { RefundDataService, RefundDispatchers, RefundSelectors } from './services'
 
-export const services = [RefundDispatchers, RefundSelectors]
+export const services = [RefundDataService, RefundDispatchers, RefundSelectors]

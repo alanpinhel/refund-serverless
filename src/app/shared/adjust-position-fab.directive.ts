@@ -11,11 +11,8 @@ export class AdjustPositionFABDirective {
   constructor(private elementRef: ElementRef, private renderer: Renderer2, private cd: ChangeDetectorRef) {
     const ro = new ResizeObserver(entries => {
       const { width } = entries[0].contentRect
-      if (width > this.maxWidthBody) {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'right', `${(width - this.maxWidthBody) / 2 + this.spacingFAB}px`)
-      } else {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'right', `${this.spacingFAB}px`)
-      }
+      const right = width > this.maxWidthBody ? (width - this.maxWidthBody) / 2 + this.spacingFAB : this.spacingFAB
+      this.renderer.setStyle(this.elementRef.nativeElement, 'right', `${right}px`)
       this.cd.detectChanges()
     })
     ro.observe(document.querySelector('html'))

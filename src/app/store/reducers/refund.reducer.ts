@@ -3,18 +3,29 @@ import { createReducer, on, Action } from '@ngrx/store'
 import { Refund } from '@app/core'
 import * as RefundActions from '../actions'
 
-export const initialState: Refund[] = []
+export interface RefundState {
+  refunds: Refund[]
+  loading: boolean
+  error: boolean
+}
+
+export const initialState: RefundState = {
+  refunds: [],
+  loading: false,
+  error: false,
+}
 
 const refundReducer = createReducer(
   initialState,
-  on(RefundActions.addRefund, (state, { refund }) => {
-    const lastRefund = [...state].sort((a, b) => b.id - a.id)[0]
-    return [...state, { ...refund, id: lastRefund ? lastRefund.id + 1 : 1, date: new Date().getTime(), status: 'Draft' }]
-  }),
-  on(RefundActions.updateRefund, (state, { refund }) => state.map(r => (r.id === refund.id ? { ...r, ...refund } : r))),
-  on(RefundActions.deleteRefund, (state, { refund }) => state.filter(r => r.id !== refund.id))
+  on(RefundActions.getRefunds, state => ({ ...state, loading: true })),
+  on(RefundActions.getRefundsError, state => ({ ...state, loading: false })),
+  on(RefundActions.getRefundsSuccess, (state, { refunds }) => ({
+    ...state,
+    loading: false,
+    refunds,
+  }))
 )
 
-export function reducer(state: Refund[], action: Action) {
+export function reducer(state: RefundState | undefined, action: Action) {
   return refundReducer(state, action)
 }

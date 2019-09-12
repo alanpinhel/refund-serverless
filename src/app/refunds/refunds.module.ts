@@ -6,20 +6,10 @@ import { RefundsRoutingModule } from './refunds-routing.module'
 import { RefundsComponent } from './refunds/refunds.component'
 import { RefundListComponent } from './refund-list.component'
 import { RefundFormComponent } from './refund-form.component'
-import { RefundFilterComponent } from './refund-filter.component'
-import { RefundActionComponent } from './refund-action.component'
-import { RefundConfirmComponent } from './refund-confirm.component'
 
 @NgModule({
-  declarations: [
-    RefundsComponent,
-    RefundListComponent,
-    RefundFormComponent,
-    RefundFilterComponent,
-    RefundActionComponent,
-    RefundConfirmComponent,
-  ],
+  declarations: [RefundsComponent, RefundListComponent, RefundFormComponent],
   imports: [CommonModule, RefundsRoutingModule, SharedModule],
-  entryComponents: [RefundFormComponent, RefundConfirmComponent],
+  entryComponents: [RefundFormComponent],
 })
 export class RefundsModule {}
