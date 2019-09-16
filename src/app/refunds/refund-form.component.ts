@@ -1,7 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core'
-import { MatDialogRef } from '@angular/material'
+import { Component, ChangeDetectionStrategy, Inject } from '@angular/core'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
 
-import { Refund } from '@app/core'
+import { Refund, MasterDetailCommands } from '@app/core'
+
+interface DataDialog {
+  refund: Refund
+  commands: MasterDetailCommands<Refund>
+}
 
 @Component({
   template: `
@@ -9,13 +14,13 @@ import { Refund } from '@app/core'
     <div mat-dialog-content>
       <p>To create a refund draft, enter the reason.</p>
       <mat-form-field class="full">
-        <input matInput required placeholder="Reason" (keyup.enter)="save()" [(ngModel)]="reason" />
+        <input matInput required placeholder="Reason" (keyup.enter)="handleSave()" [(ngModel)]="reason" />
         <mat-error>You must enter a value</mat-error>
       </mat-form-field>
     </div>
     <div mat-dialog-actions align="end">
-      <button mat-button color="primary" class="uppercase" (click)="cancel()">Cancel</button>
-      <button mat-button color="primary" class="uppercase" (click)="save()">Save</button>
+      <button mat-button color="primary" class="uppercase" (click)="handleCancel()">Cancel</button>
+      <button mat-button color="primary" class="uppercase" (click)="handleSave()">Save</button>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,14 +28,21 @@ import { Refund } from '@app/core'
 export class RefundFormComponent {
   reason: string
 
-  constructor(private dialogRef: MatDialogRef<RefundFormComponent>) {}
+  constructor(private dialogRef: MatDialogRef<RefundFormComponent>, @Inject(MAT_DIALOG_DATA) public data: DataDialog) {}
 
-  cancel() {
+  handleCancel() {
     this.dialogRef.close()
   }
 
-  save() {
-    const { reason } = this
-    reason && this.dialogRef.close({ reason } as Refund)
+  handleSave() {
+    const {
+      reason,
+      data: { commands },
+    } = this
+
+    if (reason) {
+      commands.add(<Refund>{ reason })
+      this.dialogRef.close()
+    }
   }
 }

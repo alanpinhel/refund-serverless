@@ -22,14 +22,14 @@ export class RefundDataService {
   }
 
   updateRefund(refund: Refund): Observable<Refund> {
-    return this.http.put(API, refund).pipe(
+    return this.http.put(`${API}/${refund.id}`, refund).pipe(
       map(() => refund),
       catchError(this.handleError(refund))
     )
   }
 
   deleteRefund(refund: Refund): Observable<Refund> {
-    return this.http.delete(API).pipe(
+    return this.http.delete(`${API}/${refund.id}`).pipe(
       map(() => refund),
       catchError(this.handleError(refund))
     )

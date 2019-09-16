@@ -5,10 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MaterialModule } from './material.module'
 import { AdjustPositionFABDirective } from './adjust-position-fab.directive'
 import { ConfirmDialogComponent } from './confirm-dialog.component'
+import { LoadingComponent } from './loading.component'
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
-  declarations: [AdjustPositionFABDirective, ConfirmDialogComponent],
-  exports: [FormsModule, ReactiveFormsModule, MaterialModule, AdjustPositionFABDirective, ConfirmDialogComponent],
+  declarations: [AdjustPositionFABDirective, ConfirmDialogComponent, LoadingComponent],
+  exports: [FormsModule, ReactiveFormsModule, MaterialModule, AdjustPositionFABDirective, ConfirmDialogComponent, LoadingComponent],
+  entryComponents: [ConfirmDialogComponent],
 })
 export class SharedModule {}

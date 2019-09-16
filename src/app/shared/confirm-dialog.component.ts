@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Inject } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
 
-export interface DialogData {
+interface DialogData {
   title: string
   content: string
 }
@@ -13,8 +13,8 @@ export interface DialogData {
       <p>{{ data.content }}</p>
     </div>
     <div mat-dialog-actions align="end">
-      <button mat-button color="primary" class="uppercase" (click)="no()">No</button>
-      <button mat-button color="primary" class="uppercase" (click)="yes()">Yes</button>
+      <button mat-button color="primary" class="uppercase" (click)="handleNo()">No</button>
+      <button mat-button color="primary" class="uppercase" (click)="handleYes()">Yes</button>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,11 +22,11 @@ export interface DialogData {
 export class ConfirmDialogComponent {
   constructor(private dialogRef: MatDialogRef<ConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  no() {
+  handleNo() {
     this.dialogRef.close()
   }
 
-  yes() {
+  handleYes() {
     this.dialogRef.close(true)
   }
 }

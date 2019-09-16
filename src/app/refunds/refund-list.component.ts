@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
 
-import { Refund } from '@app/core'
+import { Refund, MasterDetailCommands } from '@app/core'
 
 @Component({
   selector: 'app-refund-list',
@@ -9,7 +9,7 @@ import { Refund } from '@app/core'
       <table mat-table [dataSource]="refunds">
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef>Date</th>
-          <td mat-cell *matCellDef="let r">{{ r.date | date }}</td>
+          <td mat-cell *matCellDef="let r">{{ r.date | date: 'shortDate' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -23,7 +23,7 @@ import { Refund } from '@app/core'
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
-        <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        <tr mat-row *matRowDef="let r; columns: columns" (click)="commands.select(r)"></tr>
       </table>
     </div>
   `,
@@ -31,5 +31,6 @@ import { Refund } from '@app/core'
 })
 export class RefundListComponent {
   @Input() refunds: Refund[]
-  @Input() columns: string[]
+  @Input() commands: MasterDetailCommands<Refund>
+  columns = ['date', 'status', 'reason']
 }

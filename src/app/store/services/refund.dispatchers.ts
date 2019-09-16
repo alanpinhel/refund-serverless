@@ -17,11 +17,11 @@ export class RefundDispatchers {
     this.store.dispatch(RefundAction.addRefund({ refund }))
   }
 
-  updateHero(refund: Refund) {
+  updateRefund(refund: Refund) {
     this.store.dispatch(RefundAction.updateRefund({ refund }))
   }
 
-  deleteHero(refund: Refund) {
+  deleteRefund(refund: Refund) {
     this.store.dispatch(RefundAction.deleteRefund({ refund }))
   }
 }
