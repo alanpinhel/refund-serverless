@@ -5,32 +5,21 @@ import { Refund, MasterDetailCommands } from '@app/core'
 @Component({
   selector: 'app-refund-list',
   template: `
-    <div class="wrapper-table">
-      <table mat-table [dataSource]="refunds">
-        <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef>Date</th>
-          <td mat-cell *matCellDef="let r">{{ r.date | date: 'shortDate' }}</td>
-        </ng-container>
+    <mat-toolbar color="primary">
+      Refunds
+    </mat-toolbar>
 
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>Status</th>
-          <td mat-cell *matCellDef="let r">{{ r.status }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="reason">
-          <th mat-header-cell *matHeaderCellDef>Reason</th>
-          <td mat-cell *matCellDef="let r">{{ r.reason }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columns"></tr>
-        <tr mat-row *matRowDef="let r; columns: columns" (click)="commands.select(r)"></tr>
-      </table>
-    </div>
+    <mat-action-list>
+      <mat-list-item *ngFor="let refund of refunds" (click)="commands.select(refund)">
+        <img matListAvatar [src]="'assets/' + refund.status + '.svg'" [alt]="refund.status" />
+        <h4 mat-line>{{ refund.reason }}</h4>
+        <p mat-line>{{ refund.date | date }}</p>
+      </mat-list-item>
+    </mat-action-list>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RefundListComponent {
   @Input() refunds: Refund[]
   @Input() commands: MasterDetailCommands<Refund>
-  columns = ['date', 'status', 'reason']
 }

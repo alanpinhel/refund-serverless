@@ -11,6 +11,6 @@ import { RefundDetailComponent } from './refund-detail.component'
 @NgModule({
   declarations: [RefundsComponent, RefundListComponent, RefundFormComponent, RefundDetailComponent],
   imports: [CommonModule, RefundsRoutingModule, SharedModule],
-  entryComponents: [RefundFormComponent, RefundDetailComponent],
+  entryComponents: [RefundFormComponent],
 })
 export class RefundsModule {}

@@ -1,8 +1,12 @@
-<div class="mat-elevation-z1">
-  <app-loading *ngIf="loading$ | async"></app-loading>
-  <app-refund-list [refunds]="refunds$ | async" [commands]="commands"></app-refund-list>
-</div>
+<app-loading *ngIf="loading$ | async"></app-loading>
 
-<button mat-fab appAdjustPositionFAB aria-label="New Refund" (click)="openFormRefund()">
-  <mat-icon>add</mat-icon>
-</button>
+<ng-container *ngIf="selected; else refundList">
+  <app-refund-detail [refund]="selected" [commands]="commands"></app-refund-detail>
+</ng-container>
+
+<ng-template #refundList>
+  <app-refund-list [refunds]="refunds$ | async" [commands]="commands"></app-refund-list>
+  <button mat-fab appAdjustPositionFAB aria-label="New Refund" (click)="openFormRefund()">
+    <mat-icon>add</mat-icon>
+  </button>
+</ng-template>
