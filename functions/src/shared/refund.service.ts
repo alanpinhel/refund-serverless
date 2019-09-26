@@ -20,7 +20,7 @@ function getRefunds(_req: Request, res: Response) {
 }
 
 function postRefund(req: Request, res: Response) {
-  const partialRefund = { date: new Date().getTime(), status: 'Draft', reason: req.body.reason }
+  const partialRefund = { date: new Date().getTime(), status: 'draft', reason: req.body.reason, expenses: [], total: 0 }
   db.collection('refunds')
     .add(partialRefund)
     .then((doc: any) => {
