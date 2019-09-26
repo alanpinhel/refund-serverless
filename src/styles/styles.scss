@@ -2,14 +2,14 @@
 @import './material';
 
 html {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-color: mat-color($app-primary, 'A200');
 }
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  min-height: 100%;
+  height: 100vh;
   width: 100%;
   max-width: 425px;
   margin: 0 auto;
