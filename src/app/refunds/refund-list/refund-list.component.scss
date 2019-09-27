@@ -1,0 +1,12 @@
+:host {
+  .refundList {
+    &__refunds {
+      padding-top: 0;
+    }
+
+    &__fabNewRefund {
+      position: fixed;
+      bottom: 16px;
+    }
+  }
+}

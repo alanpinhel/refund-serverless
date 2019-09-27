@@ -4,9 +4,9 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { SharedModule } from '@app/shared'
 import { RefundsComponent } from './refunds/refunds.component'
-import { RefundListComponent } from './refund-list.component'
-import { RefundFormComponent } from './refund-form.component'
-import { RefundDetailComponent } from './refund-detail.component'
+import { RefundListComponent } from './refund-list/refund-list.component'
+import { RefundFormComponent } from './refund-form/refund-form.component'
+import { RefundDetailComponent } from './refund-detail/refund-detail.component'
 
 const routes: Routes = [{ path: '', pathMatch: 'full', component: RefundsComponent }]
 

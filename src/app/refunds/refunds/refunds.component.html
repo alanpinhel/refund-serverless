@@ -1,9 +1,9 @@
 <app-loading *ngIf="loading$ | async"></app-loading>
 
 <ng-container *ngIf="selected; else refundList">
-  <app-refund-detail class="refundDetail" [refund]="selected" [commands]="commands"></app-refund-detail>
+  <app-refund-detail [refund]="selected" [commands]="commands"></app-refund-detail>
 </ng-container>
 
 <ng-template #refundList>
-  <app-refund-list class="refundList" [refunds]="refunds$ | async" [commands]="commands"></app-refund-list>
+  <app-refund-list [refunds]="refunds$ | async" [commands]="commands"></app-refund-list>
 </ng-template>

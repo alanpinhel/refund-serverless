@@ -9,20 +9,8 @@ interface DataDialog {
 }
 
 @Component({
-  template: `
-    <h1 mat-dialog-title>New Refund</h1>
-    <div mat-dialog-content>
-      <p>To create a refund draft, enter the reason.</p>
-      <mat-form-field class="refundForm__formField">
-        <input matInput required placeholder="Reason" (keyup.enter)="handleSave()" [(ngModel)]="reason" />
-        <mat-error>You must enter a value</mat-error>
-      </mat-form-field>
-    </div>
-    <div mat-dialog-actions align="end">
-      <button mat-button color="primary" class="refundForm__button" (click)="handleCancel()">Cancel</button>
-      <button mat-button color="primary" class="refundForm__button" (click)="handleSave()">Save</button>
-    </div>
-  `,
+  templateUrl: './refund-form.component.html',
+  styleUrls: ['./refund-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RefundFormComponent {

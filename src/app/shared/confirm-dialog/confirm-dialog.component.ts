@@ -7,16 +7,8 @@ interface DialogData {
 }
 
 @Component({
-  template: `
-    <h1 mat-dialog-title>{{ data.title }}</h1>
-    <div mat-dialog-content>
-      <p>{{ data.content }}</p>
-    </div>
-    <div mat-dialog-actions align="end">
-      <button mat-button color="primary" class="confirmDialog__button" (click)="handleNo()">No</button>
-      <button mat-button color="primary" class="confirmDialog__button" (click)="handleYes()">Yes</button>
-    </div>
-  `,
+  templateUrl: './confirm-dialog.component.html',
+  styleUrls: ['./confirm-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmDialogComponent {

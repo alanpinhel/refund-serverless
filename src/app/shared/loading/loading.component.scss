@@ -1,0 +1,13 @@
+:host {
+  .loading {
+    &__card {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-18px);
+      border-radius: 100%;
+      padding: 0.5rem;
+      z-index: 999;
+    }
+  }
+}

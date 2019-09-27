@@ -1,0 +1,11 @@
+:host {
+  .refundForm {
+    &__formField {
+      width: 100%;
+    }
+
+    &__button {
+      text-transform: uppercase;
+    }
+  }
+}
