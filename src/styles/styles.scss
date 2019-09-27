@@ -1,29 +1,18 @@
 @import './theme';
-@import './material';
 
 html {
   height: 100vh;
   width: 100%;
-  background-color: mat-color($app-primary, 'A200');
+  background-color: mat-color($app-primary, 50);
+  overflow-y: scroll;
 }
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   max-width: 425px;
   margin: 0 auto;
+  background-color: mat-color($app-primary, '500-contrast');
   box-sizing: border-box;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.full {
-  width: 100%;
-}
-
-.spacer {
-  flex: 1 1 auto;
 }

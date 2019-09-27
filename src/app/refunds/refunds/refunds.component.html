@@ -6,7 +6,4 @@
 
 <ng-template #refundList>
   <app-refund-list class="refundList" [refunds]="refunds$ | async" [commands]="commands"></app-refund-list>
-  <button mat-fab appAdjustPositionFAB class="refunds__fabNewRefund" aria-label="New Refund" (click)="openFormRefund()">
-    <mat-icon>add</mat-icon>
-  </button>
 </ng-template>

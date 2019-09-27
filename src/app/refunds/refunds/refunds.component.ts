@@ -6,7 +6,6 @@ import { SubSink } from 'subsink'
 import { Refund, MasterDetailCommands } from '@app/core'
 import { RefundDispatchers, RefundSelectors } from '@app/store'
 import { ConfirmDialogComponent } from '@app/shared'
-import { RefundFormComponent } from '../refund-form.component'
 
 @Component({
   selector: 'app-refunds',
@@ -67,9 +66,5 @@ export class RefundsComponent implements MasterDetailCommands<Refund>, OnInit, O
 
   update(refund: Refund) {
     this.refundDispatchers.updateRefund(refund)
-  }
-
-  openFormRefund() {
-    this.dialog.open(RefundFormComponent, { data: { commands: this.commands } })
   }
 }

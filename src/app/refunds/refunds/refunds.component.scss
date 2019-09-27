@@ -1,7 +1,11 @@
 :host {
   ::ng-deep {
-    .refunds {
-      @at-root #{&}__fabNewRefund {
+    .refundList {
+      &__refunds {
+        padding-top: 0;
+      }
+
+      &__fabNewRefund {
         position: fixed;
         bottom: 16px;
       }
@@ -12,42 +16,102 @@
       display: block;
       min-height: 100vh;
 
-      @at-root #{&}__priorityActionsToolbar {
-        position: sticky;
-        top: 0;
+      &__toolbar {
+        z-index: 2;
+
+        &--priority {
+          position: sticky;
+          top: 0;
+        }
       }
 
-      @at-root #{&}__title {
+      &__toolbarRowActions {
+        justify-content: space-between;
+      }
+
+      &__toolbarTitle {
         margin-left: 56px;
+
+        &--singleLine {
+          margin-left: 16px;
+        }
       }
 
-      @at-root #{&}__fabNewExpense {
+      &__fabNewExpense {
         position: absolute;
         bottom: -20px;
       }
 
-      @at-root #{&}__footer {
-        position: fixed;
-        bottom: 0;
-        padding: 16px;
+      &__amountExpenses {
+        text-align: right;
+        padding-right: 16px;
+      }
+
+      &__expenses {
+        padding-top: 0;
+      }
+
+      & .refundDetail__receipt.refundDetail__receipt {
+        border-radius: 0;
+      }
+
+      & .refundDetail__expenseTypeValueWrapper {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__expenseDate {
+        color: #9e9e9e;
+      }
+
+      &__footer {
+        padding-right: 16px;
+        padding-bottom: 16px;
+        padding-left: 16px;
         width: 100%;
         max-width: 425px;
         box-sizing: border-box;
       }
 
-      @at-root #{&}__totalWrapper {
+      &__descriptionWrapper {
+        margin-bottom: 16px;
+      }
+
+      &__totalWrapper {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
+
+      &__totalLabel {
+        text-transform: uppercase;
+        color: #9e9e9e;
+      }
+
+      &__totalValue {
+        font-size: 1.5rem;
+        font-weight: 400;
+      }
+
+      &__infoWrapper {
         display: flex;
         justify-content: space-between;
       }
 
-      @at-root #{&}__totalLabel {
-        text-transform: uppercase;
+      &__infoLabel {
+        font-size: 0.875rem;
+        line-height: 1.5;
       }
 
-      @at-root #{&}__totalValue {
+      &__infoValue {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #9e9e9e;
       }
 
-      @at-root #{&}__confirmButton {
+      &__confirmButton {
         width: 100%;
         text-transform: uppercase;
       }
@@ -56,34 +120,19 @@
 }
 
 ::ng-deep {
-  .mat-dialog-container {
-    border-radius: 0;
-    padding: 0;
-  }
-
-  .title-toolbar {
-    margin-left: 8px;
-  }
-
-  .content-full-dialog {
-    padding: 16px;
-  }
-
-  .main {
-    flex: 1;
-
-    .mat-list-base {
-      padding: 0;
+  .refundForm {
+    &__formField {
+      width: 100%;
     }
 
-    .mat-list-base .mat-list-item .mat-list-avatar {
-      border-radius: 0;
+    &__button {
+      text-transform: uppercase;
     }
   }
 
-  .amount-expenses {
-    text-align: right;
-    padding-right: 16px;
-    padding-left: 16px;
+  .confirmDialog {
+    &__button {
+      text-transform: uppercase;
+    }
   }
 }
