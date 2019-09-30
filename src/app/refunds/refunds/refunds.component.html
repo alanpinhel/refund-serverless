@@ -1,14 +1,25 @@
 <app-loading *ngIf="loading$ | async"></app-loading>
 
-<ng-container *ngIf="selected; else refundList">
-  <app-refund-detail
-    [refund]="selected"
-    [showActions]="showActions"
-    [disableActionConfirm]="disableActionConfirm"
-    (unselectRefund)="handleUnselectRefund()"
-    (deleteRefund)="handleDeleteRefund()"
-    (confirmRefund)="handleConfirmRefund()"
-  ></app-refund-detail>
+<ng-container *ngIf="selectedRefund; else refundList">
+  <app-refund-expense
+    *ngIf="selectedExpense; else refundDetail"
+    [expense]="selectedExpense"
+    (unselectExpense)="handleUnselectExpense()"
+    (deleteExpense)="handleDeleteExpense()"
+    (saveExpense)="handleSaveExpense()"
+  ></app-refund-expense>
+
+  <ng-template #refundDetail>
+    <app-refund-detail
+      [refund]="selectedRefund"
+      [showActions]="showActions"
+      [disableActionConfirm]="disableActionConfirm"
+      (unselectRefund)="handleUnselectRefund()"
+      (deleteRefund)="handleDeleteRefund()"
+      (confirmRefund)="handleConfirmRefund()"
+      (selectExpense)="handleSelectExpense($event)"
+    ></app-refund-detail>
+  </ng-template>
 </ng-container>
 
 <ng-template #refundList>

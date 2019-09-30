@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material'
 import { Observable } from 'rxjs'
 import { SubSink } from 'subsink'
 
-import { Refund } from '@app/core'
+import { Refund, Expense } from '@app/core'
 import { RefundDispatchers, RefundSelectors } from '@app/store'
 import { ConfirmDialogComponent } from '@app/shared'
 import { RefundFormComponent } from '../refund-form/refund-form.component'
@@ -14,7 +14,8 @@ import { RefundFormComponent } from '../refund-form/refund-form.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RefundsComponent implements OnInit, OnDestroy {
-  selected: Refund
+  selectedRefund: Refund
+  selectedExpense: Expense
 
   refunds$: Observable<Refund[]>
   loading$: Observable<boolean>
@@ -50,19 +51,19 @@ export class RefundsComponent implements OnInit, OnDestroy {
   }
 
   handleSelectRefund(refund: Refund) {
-    this.selected = refund
+    this.selectedRefund = refund
   }
 
   get showActions() {
-    return this.selected.status === 'draft'
+    return this.selectedRefund.status === 'draft'
   }
 
   get disableActionConfirm() {
-    return !this.selected.expenses.length
+    return !this.selectedRefund.expenses.length
   }
 
   handleUnselectRefund() {
-    this.selected = null
+    this.selectedRefund = null
   }
 
   handleDeleteRefund() {
@@ -71,8 +72,8 @@ export class RefundsComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
-          this.refundDispatchers.deleteRefund(this.selected)
-          this.selected = null
+          this.refundDispatchers.deleteRefund(this.selectedRefund)
+          this.selectedRefund = null
           this.cd.markForCheck()
         }
       })
@@ -84,10 +85,34 @@ export class RefundsComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
-          this.refundDispatchers.updateRefund({ ...this.selected, status: 'confirmed' })
-          this.selected = null
-          this.cd.markForCheck()
+          const updatedRefund = { ...this.selectedRefund, status: 'confirmed' }
+          this.refundDispatchers.updateRefund(updatedRefund)
+          this.selectedRefund = updatedRefund
         }
       })
+  }
+
+  handleSelectExpense(expense: Expense) {
+    this.selectedExpense = expense
+  }
+
+  handleUnselectExpense() {
+    this.selectedExpense = null
+  }
+
+  handleDeleteExpense() {
+    const updatedExpenses = this.selectedRefund.expenses.filter(e => e !== this.selectedExpense)
+    const updatedRefund = { ...this.selectedRefund, expenses: updatedExpenses, total: updatedExpenses.reduce((acc, e) => acc + e.value, 0) }
+    this.refundDispatchers.updateRefund(updatedRefund)
+    this.selectedRefund = updatedRefund
+    this.selectedExpense = null
+  }
+
+  handleSaveExpense() {
+    const updatedExpenses = this.selectedRefund.expenses.concat([this.selectedExpense])
+    const updatedRefund = { ...this.selectedRefund, expenses: updatedExpenses, total: updatedExpenses.reduce((acc, e) => acc + e.value, 0) }
+    this.refundDispatchers.updateRefund(updatedRefund)
+    this.selectedRefund = updatedRefund
+    this.selectedExpense = null
   }
 }

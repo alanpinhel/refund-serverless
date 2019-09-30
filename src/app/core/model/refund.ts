@@ -6,4 +6,5 @@ export class Refund {
   reason: string
   status: string
   expenses: Expense[]
+  total: number
 }

@@ -1,0 +1,27 @@
+:host {
+  .refundExpense {
+    &__toolbarTitle {
+      margin-left: 16px;
+    }
+
+    &__spacer {
+      flex: 1;
+    }
+
+    &__main {
+      padding: 16px;
+      width: 100%;
+      max-width: 425px;
+      box-sizing: border-box;
+    }
+
+    &__saveButton {
+      text-transform: uppercase;
+    }
+
+    &__removeButton {
+      width: 100%;
+      text-transform: uppercase;
+    }
+  }
+}

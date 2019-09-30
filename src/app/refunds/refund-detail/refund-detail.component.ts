@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core'
 
-import { Refund } from '@app/core'
+import { Refund, Expense } from '@app/core'
 
 @Component({
   selector: 'app-refund-detail',
@@ -16,4 +16,5 @@ export class RefundDetailComponent {
   @Output() unselectRefund = new EventEmitter()
   @Output() deleteRefund = new EventEmitter()
   @Output() confirmRefund = new EventEmitter()
+  @Output() selectExpense = new EventEmitter<Expense>()
 }

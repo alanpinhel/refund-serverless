@@ -13,7 +13,14 @@
   <mat-toolbar class="refundDetail__toolbar refundDetail__toolbar--priority" color="primary">
     <mat-toolbar-row>
       <span class="refundDetail__toolbarTitle">Refund</span>
-      <button mat-mini-fab *ngIf="showActions" class="refundDetail__fabNewExpense" color="" aria-label="New Expense">
+      <button
+        mat-mini-fab
+        *ngIf="showActions"
+        class="refundDetail__fabNewExpense"
+        color=""
+        aria-label="New Expense"
+        (click)="selectExpense.emit({})"
+      >
         <mat-icon>add</mat-icon>
       </button>
     </mat-toolbar-row>
@@ -41,21 +48,41 @@
 
 <mat-divider></mat-divider>
 
-<mat-action-list class="refundDetail__expenses">
-  <mat-list-item *ngFor="let expense of refund.expenses">
-    <img
-      matListAvatar
-      class="refundDetail__receipt"
-      src="https://nayrontoledo.files.wordpress.com/2014/04/dcd4c-comprovanteqnadacomprova.jpg"
-    />
-    <div mat-line class="refundDetail__expenseTypeValueWrapper">
-      <span>{{ expense.type }}</span>
-      <span>{{ expense.value | number: '.2' }}</span>
-    </div>
-    <span mat-line class="refundDetail__expenseDate">{{ expense.date | date }}</span>
-    <mat-divider></mat-divider>
-  </mat-list-item>
-</mat-action-list>
+<ng-container *ngIf="showActions; else expensesReadOnly">
+  <mat-action-list class="refundDetail__expenses">
+    <mat-list-item *ngFor="let expense of refund.expenses" (click)="selectExpense.emit(expense)">
+      <img
+        matListAvatar
+        class="refundDetail__receipt"
+        src="https://nayrontoledo.files.wordpress.com/2014/04/dcd4c-comprovanteqnadacomprova.jpg"
+      />
+      <div mat-line class="refundDetail__expenseTypeValueWrapper">
+        <span>{{ expense.type }}</span>
+        <span>{{ expense.value | number: '.2' }}</span>
+      </div>
+      <span mat-line class="refundDetail__expenseDate">{{ expense.date | date }}</span>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-action-list>
+</ng-container>
+
+<ng-template #expensesReadOnly>
+  <mat-list class="refundDetail__expenses">
+    <mat-list-item *ngFor="let expense of refund.expenses">
+      <img
+        matListAvatar
+        class="refundDetail__receipt"
+        src="https://nayrontoledo.files.wordpress.com/2014/04/dcd4c-comprovanteqnadacomprova.jpg"
+      />
+      <div mat-line class="refundDetail__expenseTypeValueWrapper">
+        <span>{{ expense.type }}</span>
+        <span>{{ expense.value | number: '.2' }}</span>
+      </div>
+      <span mat-line class="refundDetail__expenseDate">{{ expense.date | date }}</span>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</ng-template>
 
 <footer class="refundDetail__footer">
   <div class="refundDetail__descriptionWrapper">

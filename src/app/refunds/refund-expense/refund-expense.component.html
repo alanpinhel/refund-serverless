@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="unselectExpense.emit()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="refundExpense__toolbarTitle">Expense</span>
+    <span class="refundExpense__spacer"></span>
+    <button mat-button class="refundExpense__saveButton" (click)="saveExpense.emit()">Save</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<main class="refundExpense__main">
+  <button mat-stroked-button class="refundExpense__removeButton" (click)="deleteExpense.emit()" *ngIf="expense.id">
+    Remove from Refund
+  </button>
+</main>
