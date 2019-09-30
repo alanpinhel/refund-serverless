@@ -3,19 +3,18 @@ import { MatDialog } from '@angular/material'
 import { Observable } from 'rxjs'
 import { SubSink } from 'subsink'
 
-import { Refund, MasterDetailCommands } from '@app/core'
+import { Refund } from '@app/core'
 import { RefundDispatchers, RefundSelectors } from '@app/store'
 import { ConfirmDialogComponent } from '@app/shared'
+import { RefundFormComponent } from '../refund-form/refund-form.component'
 
 @Component({
   selector: 'app-refunds',
   templateUrl: './refunds.component.html',
-  styleUrls: ['./refunds.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundsComponent implements MasterDetailCommands<Refund>, OnInit, OnDestroy {
+export class RefundsComponent implements OnInit, OnDestroy {
   selected: Refund
-  commands = this
 
   refunds$: Observable<Refund[]>
   loading$: Observable<boolean>
@@ -39,32 +38,56 @@ export class RefundsComponent implements MasterDetailCommands<Refund>, OnInit, O
     this.subs.unsubscribe()
   }
 
-  close() {
+  handleNewRefund() {
+    this.subs.sink = this.dialog
+      .open(RefundFormComponent)
+      .afterClosed()
+      .subscribe((reason: string) => {
+        if (reason) {
+          this.refundDispatchers.addRefund(<Refund>{ reason })
+        }
+      })
+  }
+
+  handleSelectRefund(refund: Refund) {
+    this.selected = refund
+  }
+
+  get showActions() {
+    return this.selected.status === 'draft'
+  }
+
+  get disableActionConfirm() {
+    return !this.selected.expenses.length
+  }
+
+  handleUnselectRefund() {
     this.selected = null
   }
 
-  add(refund: Refund) {
-    this.refundDispatchers.addRefund(refund)
-  }
-
-  delete(refund: Refund) {
+  handleDeleteRefund() {
     this.subs.sink = this.dialog
       .open(ConfirmDialogComponent, { data: { title: 'Refund Delete', content: 'Do you really want to delete?' } })
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
-          this.close()
-          this.refundDispatchers.deleteRefund(refund)
+          this.refundDispatchers.deleteRefund(this.selected)
+          this.selected = null
           this.cd.markForCheck()
         }
       })
   }
 
-  select(refund: Refund) {
-    this.selected = refund
-  }
-
-  update(refund: Refund) {
-    this.refundDispatchers.updateRefund(refund)
+  handleConfirmRefund() {
+    this.subs.sink = this.dialog
+      .open(ConfirmDialogComponent, { data: { title: 'Refund Confirm', content: 'Do you really want to confirm?' } })
+      .afterClosed()
+      .subscribe((res: boolean) => {
+        if (res) {
+          this.refundDispatchers.updateRefund({ ...this.selected, status: 'confirmed' })
+          this.selected = null
+          this.cd.markForCheck()
+        }
+      })
   }
 }

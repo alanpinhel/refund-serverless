@@ -3,13 +3,13 @@
 </mat-toolbar>
 
 <mat-action-list class="refundList__refunds">
-  <mat-list-item *ngFor="let refund of refunds" (click)="commands.select(refund)">
+  <mat-list-item *ngFor="let refund of refunds" (click)="selectRefund.emit(refund)">
     <img matListAvatar [src]="'assets/' + refund.status + '.svg'" [alt]="refund.status" />
     <h4 mat-line>{{ refund.reason }}</h4>
     <p mat-line>{{ refund.date | date }}</p>
   </mat-list-item>
 </mat-action-list>
 
-<button mat-fab appAdjustPositionFAB class="refundList__fabNewRefund" aria-label="New Refund" (click)="openFormRefund()">
+<button mat-fab appAdjustPositionFAB class="refundList__fabNewRefund" aria-label="New Refund" (click)="newRefund.emit()">
   <mat-icon>add</mat-icon>
 </button>

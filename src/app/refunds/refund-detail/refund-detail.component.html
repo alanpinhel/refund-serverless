@@ -1,10 +1,10 @@
-<ng-container *ngIf="showActions(); else toolbarWithoutActions">
+<ng-container *ngIf="showActions; else toolbarWithoutActions">
   <mat-toolbar class="refundDetail__toolbar" color="primary">
     <mat-toolbar-row class="refundDetail__toolbarRowActions">
-      <button mat-icon-button (click)="handleBack()">
+      <button mat-icon-button (click)="unselectRefund.emit()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="showActions()" (click)="handleDelete()">
+      <button mat-icon-button *ngIf="showActions" (click)="deleteRefund.emit()">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-toolbar-row>
@@ -13,7 +13,7 @@
   <mat-toolbar class="refundDetail__toolbar refundDetail__toolbar--priority" color="primary">
     <mat-toolbar-row>
       <span class="refundDetail__toolbarTitle">Refund</span>
-      <button mat-mini-fab *ngIf="showActions()" class="refundDetail__fabNewExpense" color="" aria-label="New Expense">
+      <button mat-mini-fab *ngIf="showActions" class="refundDetail__fabNewExpense" color="" aria-label="New Expense">
         <mat-icon>add</mat-icon>
       </button>
     </mat-toolbar-row>
@@ -23,7 +23,7 @@
 <ng-template #toolbarWithoutActions>
   <mat-toolbar class="refundDetail__toolbar" color="primary">
     <mat-toolbar-row>
-      <button mat-icon-button (click)="handleBack()">
+      <button mat-icon-button (click)="unselectRefund.emit()">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <span class="refundDetail__toolbarTitle--singleLine">Refund</span>
@@ -31,8 +31,14 @@
   </mat-toolbar>
 </ng-template>
 
-<p *ngIf="refund?.expenses?.length" class="refundDetail__amountExpenses">{{ refund?.expenses?.length }} expenses in your refund</p>
-<p *ngIf="!refund?.expenses?.length" class="refundDetail__amountExpenses">refund without expenses</p>
+<ng-container *ngIf="refund?.expenses?.length; else emptyExpenses">
+  <p class="refundDetail__amountExpenses">{{ refund?.expenses?.length }} expenses in your refund</p>
+</ng-container>
+
+<ng-template #emptyExpenses>
+  <p class="refundDetail__amountExpenses">refund without expenses</p>
+</ng-template>
+
 <mat-divider></mat-divider>
 
 <mat-action-list class="refundDetail__expenses">
@@ -44,7 +50,7 @@
     />
     <div mat-line class="refundDetail__expenseTypeValueWrapper">
       <span>{{ expense.type }}</span>
-      <span>{{ expense.value | number: '.1-2' }}</span>
+      <span>{{ expense.value | number: '.2' }}</span>
     </div>
     <span mat-line class="refundDetail__expenseDate">{{ expense.date | date }}</span>
     <mat-divider></mat-divider>
@@ -55,7 +61,7 @@
   <div class="refundDetail__descriptionWrapper">
     <div class="refundDetail__totalWrapper">
       <span class="refundDetail__totalLabel">Total</span>
-      <span class="refundDetail__totalValue">{{ refund.total | number: '.1-2' }}</span>
+      <span class="refundDetail__totalValue">{{ refund.total | number: '.2' }}</span>
     </div>
 
     <div class="refundDetail__infoWrapper">
@@ -78,9 +84,9 @@
     mat-flat-button
     class="refundDetail__confirmButton"
     color="primary"
-    *ngIf="showActions()"
-    [disabled]="disableActionConfirm()"
-    (click)="handleConfirm()"
+    *ngIf="showActions"
+    [disabled]="disableActionConfirm"
+    (click)="confirmRefund.emit()"
   >
     Confirm
   </button>

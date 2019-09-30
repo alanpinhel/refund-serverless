@@ -1,8 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
-import { MatDialog } from '@angular/material'
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core'
 
-import { Refund, MasterDetailCommands } from '@app/core'
-import { RefundFormComponent } from '../refund-form/refund-form.component'
+import { Refund } from '@app/core'
 
 @Component({
   selector: 'app-refund-list',
@@ -12,11 +10,7 @@ import { RefundFormComponent } from '../refund-form/refund-form.component'
 })
 export class RefundListComponent {
   @Input() refunds: Refund[]
-  @Input() commands: MasterDetailCommands<Refund>
 
-  constructor(private dialog: MatDialog) {}
-
-  openFormRefund() {
-    this.dialog.open(RefundFormComponent, { data: { commands: this.commands } })
-  }
+  @Output() newRefund = new EventEmitter()
+  @Output() selectRefund = new EventEmitter<Refund>()
 }

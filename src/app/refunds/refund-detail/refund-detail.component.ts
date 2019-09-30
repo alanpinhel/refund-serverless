@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core'
 
-import { Refund, MasterDetailCommands } from '@app/core'
+import { Refund } from '@app/core'
 
 @Component({
   selector: 'app-refund-detail',
@@ -10,26 +10,10 @@ import { Refund, MasterDetailCommands } from '@app/core'
 })
 export class RefundDetailComponent {
   @Input() refund: Refund
-  @Input() commands: MasterDetailCommands<Refund>
+  @Input() showActions: boolean
+  @Input() disableActionConfirm: boolean
 
-  showActions() {
-    return this.refund.status === 'draft'
-  }
-
-  disableActionConfirm() {
-    return !this.refund.expenses.length
-  }
-
-  handleBack() {
-    this.commands.close()
-  }
-
-  handleDelete() {
-    this.commands.delete(this.refund)
-  }
-
-  handleConfirm() {
-    this.commands.close()
-    this.commands.update({ ...this.refund, status: 'confirmed' })
-  }
+  @Output() unselectRefund = new EventEmitter()
+  @Output() deleteRefund = new EventEmitter()
+  @Output() confirmRefund = new EventEmitter()
 }
