@@ -9,8 +9,9 @@ import { Expense } from '@app/core'
 })
 export class RefundExpenseComponent {
   @Input() expense: Expense
+  @Input() expenseInEditMode: boolean
 
   @Output() unselectExpense = new EventEmitter()
   @Output() deleteExpense = new EventEmitter()
-  @Output() saveExpense = new EventEmitter<Expense>()
+  @Output() saveExpense = new EventEmitter()
 }

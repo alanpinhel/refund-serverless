@@ -4,6 +4,7 @@
   <app-refund-expense
     *ngIf="selectedExpense; else refundDetail"
     [expense]="selectedExpense"
+    [expenseInEditMode]="expenseInEditMode"
     (unselectExpense)="handleUnselectExpense()"
     (deleteExpense)="handleDeleteExpense()"
     (saveExpense)="handleSaveExpense()"

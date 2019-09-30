@@ -39,6 +39,18 @@ export class RefundsComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe()
   }
 
+  get showActions() {
+    return this.selectedRefund.status === 'draft'
+  }
+
+  get disableActionConfirm() {
+    return !this.selectedRefund.expenses.length
+  }
+
+  get expenseInEditMode() {
+    return this.selectedRefund.expenses.includes(this.selectedExpense)
+  }
+
   handleNewRefund() {
     this.subs.sink = this.dialog
       .open(RefundFormComponent)
@@ -52,14 +64,6 @@ export class RefundsComponent implements OnInit, OnDestroy {
 
   handleSelectRefund(refund: Refund) {
     this.selectedRefund = refund
-  }
-
-  get showActions() {
-    return this.selectedRefund.status === 'draft'
-  }
-
-  get disableActionConfirm() {
-    return !this.selectedRefund.expenses.length
   }
 
   handleUnselectRefund() {
@@ -109,7 +113,9 @@ export class RefundsComponent implements OnInit, OnDestroy {
   }
 
   handleSaveExpense() {
-    const updatedExpenses = this.selectedRefund.expenses.concat([this.selectedExpense])
+    const updatedExpenses = this.expenseInEditMode
+      ? this.selectedRefund.expenses.map(e => (e === this.selectedExpense ? this.selectedExpense : e))
+      : this.selectedRefund.expenses.concat([this.selectedExpense])
     const updatedRefund = { ...this.selectedRefund, expenses: updatedExpenses, total: updatedExpenses.reduce((acc, e) => acc + e.value, 0) }
     this.refundDispatchers.updateRefund(updatedRefund)
     this.selectedRefund = updatedRefund

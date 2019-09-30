@@ -1,16 +1,37 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button (click)="unselectExpense.emit()">
-      <mat-icon>close</mat-icon>
-    </button>
-    <span class="refundExpense__toolbarTitle">Expense</span>
-    <span class="refundExpense__spacer"></span>
-    <button mat-button class="refundExpense__saveButton" (click)="saveExpense.emit()">Save</button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<form #f="ngForm" (ngSubmit)="f.valid && saveExpense.emit()">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button type="button" (click)="unselectExpense.emit()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <span class="refundExpense__toolbarTitle">Expense</span>
+      <span class="refundExpense__spacer"></span>
+      <button mat-button class="refundExpense__saveButton" type="submit">Save</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-<main class="refundExpense__main">
-  <button mat-stroked-button class="refundExpense__removeButton" (click)="deleteExpense.emit()" *ngIf="expense.id">
-    Remove from Refund
-  </button>
-</main>
+  <div class="refundExpense__previewReceipt">
+    <mat-icon class="refundExpense__cameraIcon">add_a_photo</mat-icon>
+  </div>
+
+  <main class="refundExpense__main">
+    <mat-form-field class="refundExpense__formField">
+      <input matInput required name="date" placeholder="Date" [(ngModel)]="expense.date" />
+      <mat-error>You must enter a value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="refundExpense__formField">
+      <input matInput required name="type" placeholder="Type" [(ngModel)]="expense.type" />
+      <mat-error>You must enter a value</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="refundExpense__formField">
+      <input matInput required name="value" placeholder="Value" [(ngModel)]="expense.value" />
+      <mat-error>You must enter a value</mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button *ngIf="expenseInEditMode" class="refundExpense__removeButton" type="button" (click)="deleteExpense.emit()">
+      Remove from Refund
+    </button>
+  </main>
+</form>
