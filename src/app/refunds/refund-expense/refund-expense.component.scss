@@ -39,6 +39,16 @@
       width: 100%;
     }
 
+    &__inputValue {
+      text-align: right;
+      appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        display: none;
+      }
+    }
+
     &__removeButton {
       width: 100%;
       text-transform: uppercase;
