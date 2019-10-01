@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="f.valid && saveExpense.emit()">
+<form #f="ngForm" (ngSubmit)="f.valid && saveExpense.emit(expenseDataForm)">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button mat-icon-button type="button" (click)="unselectExpense.emit()">
@@ -16,7 +16,7 @@
 
   <main class="refundExpense__main">
     <mat-form-field class="refundExpense__formField">
-      <input matInput required name="date" placeholder="Date" [matDatepicker]="picker" [value]="date" />
+      <input matInput required name="date" placeholder="Date" [matDatepicker]="picker" [(ngModel)]="expenseDataForm.date" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker touchUi #picker></mat-datepicker>
       <mat-error>You must enter a value</mat-error>
@@ -24,7 +24,7 @@
 
     <mat-form-field class="refundExpense__formField">
       <mat-label>Type</mat-label>
-      <mat-select name="type" [(ngModel)]="expense.type">
+      <mat-select name="type" [(ngModel)]="expenseDataForm.type">
         <mat-option value="lunch">Lunch</mat-option>
         <mat-option value="dinner">Dinner</mat-option>
       </mat-select>
@@ -39,7 +39,7 @@
         name="value"
         placeholder="Value"
         type="number"
-        [(ngModel)]="expense.value"
+        [(ngModel)]="expenseDataForm.value"
       />
       <span matPrefix>$&nbsp;</span>
       <mat-error>You must enter a value</mat-error>

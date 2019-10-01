@@ -106,17 +106,25 @@ export class RefundsComponent implements OnInit, OnDestroy {
 
   handleDeleteExpense() {
     const updatedExpenses = this.selectedRefund.expenses.filter(e => e !== this.selectedExpense)
-    const updatedRefund = { ...this.selectedRefund, expenses: updatedExpenses, total: updatedExpenses.reduce((acc, e) => acc + e.value, 0) }
+    const updatedRefund = {
+      ...this.selectedRefund,
+      expenses: updatedExpenses,
+      total: updatedExpenses.reduce((acc, e) => acc + +e.value, 0),
+    }
     this.refundDispatchers.updateRefund(updatedRefund)
     this.selectedRefund = updatedRefund
     this.selectedExpense = null
   }
 
-  handleSaveExpense() {
+  handleSaveExpense(expense: Expense) {
     const updatedExpenses = this.expenseInEditMode
-      ? this.selectedRefund.expenses.map(e => (e === this.selectedExpense ? this.selectedExpense : e))
-      : this.selectedRefund.expenses.concat([this.selectedExpense])
-    const updatedRefund = { ...this.selectedRefund, expenses: updatedExpenses, total: updatedExpenses.reduce((acc, e) => acc + e.value, 0) }
+      ? this.selectedRefund.expenses.map(e => (e === this.selectedExpense ? expense : e))
+      : this.selectedRefund.expenses.concat([expense])
+    const updatedRefund = {
+      ...this.selectedRefund,
+      expenses: updatedExpenses,
+      total: updatedExpenses.reduce((acc, e) => acc + +e.value, 0),
+    }
     this.refundDispatchers.updateRefund(updatedRefund)
     this.selectedRefund = updatedRefund
     this.selectedExpense = null

@@ -7,7 +7,7 @@
     [expenseInEditMode]="expenseInEditMode"
     (unselectExpense)="handleUnselectExpense()"
     (deleteExpense)="handleDeleteExpense()"
-    (saveExpense)="handleSaveExpense()"
+    (saveExpense)="handleSaveExpense($event)"
   ></app-refund-expense>
 
   <ng-template #refundDetail>
