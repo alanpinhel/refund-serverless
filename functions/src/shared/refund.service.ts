@@ -55,4 +55,55 @@ function deleteRefund(req: Request, res: Response) {
     })
 }
 
-export default { getRefunds, postRefund, putRefund, deleteRefund }
+function postExpense(req: Request, res: Response) {
+  const refundRef = db.collection('refunds').doc(req.params.id)
+  refundRef
+    .get()
+    .then((doc: any) => {
+      const { expenses, total } = doc.data()
+      const updatedExpenses = [...expenses, { id: expenses.length + 1, type: req.body.type, date: req.body.date, value: req.body.value }]
+      refundRef
+        .update({
+          id: doc.id,
+          total: +total + req.body.value,
+          expenses: updatedExpenses,
+        })
+        .then(() => {
+          res.status(200).send()
+        })
+        .catch((err: any) => {
+          res.status(500).send(err)
+        })
+    })
+    .catch((err: any) => {
+      res.status(500).send(err)
+    })
+}
+
+function deleteExpense(req: Request, res: Response) {
+  const refundRef = db.collection('refunds').doc(req.params.id)
+  refundRef
+    .get()
+    .then((doc: any) => {
+      const { expenses, total } = doc.data()
+      const deletedExpense = expenses.find((e: any) => e.id === +req.params.idExpense)
+      const updatedExpenses = expenses.filter((e: any) => e !== deletedExpense)
+      refundRef
+        .update({
+          id: doc.id,
+          total: +total - deletedExpense.value,
+          expenses: updatedExpenses,
+        })
+        .then(() => {
+          res.status(200).send()
+        })
+        .catch((err: any) => {
+          res.status(500).send(err)
+        })
+    })
+    .catch((err: any) => {
+      res.status(500).send(err)
+    })
+}
+
+export default { getRefunds, postRefund, putRefund, deleteRefund, postExpense, deleteExpense }

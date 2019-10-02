@@ -12,4 +12,7 @@ app.post('/', refundService.postRefund)
 app.put('/:id', refundService.putRefund)
 app.delete('/:id', refundService.deleteRefund)
 
+app.post('/:id/expenses', refundService.postExpense)
+app.delete('/:id/expenses/:idExpense', refundService.deleteExpense)
+
 export default functions.https.onRequest(app)
