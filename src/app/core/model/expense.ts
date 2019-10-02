@@ -1,5 +1,7 @@
 export class Expense {
-  type: string
+  id: string
   date: number
-  value: number
+  type: string
+  amount: number
+  refund: string
 }
