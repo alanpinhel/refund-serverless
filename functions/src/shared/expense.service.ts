@@ -1,13 +1,7 @@
 import { Response, Request } from 'express'
-
 import db from './db'
 
 function getExpenses(req: Request, res: Response) {
-  if (!req.query.refund) {
-    res.status(200).json([])
-    return
-  }
-
   db.getInstance()
     .collection('expenses')
     .where('refund', '==', req.query.refund)

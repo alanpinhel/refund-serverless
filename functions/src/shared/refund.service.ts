@@ -1,5 +1,4 @@
 import { Response, Request } from 'express'
-
 import db from './db'
 
 function getRefunds(_req: Request, res: Response) {
