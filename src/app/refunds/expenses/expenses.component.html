@@ -1,0 +1,16 @@
+<app-loading *ngIf="loading$ | async"></app-loading>
+
+<ng-container *ngIf="selected; else refundDetail">
+  <app-expense-form *ngIf="!selected.id" [commands]="commands"></app-expense-form>
+  <app-expense-detail *ngIf="selected.id" [expense]="selected" [commands]="commands"></app-expense-detail>
+</ng-container>
+
+<ng-template #refundDetail>
+  <app-refund-detail
+    *ngIf="refund.id"
+    [refund]="refund"
+    [commands]="masterCommands"
+    [expenses]="expenses$ | async"
+    [subCommands]="commands"
+  ></app-refund-detail>
+</ng-template>

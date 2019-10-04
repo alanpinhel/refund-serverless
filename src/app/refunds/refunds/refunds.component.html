@@ -2,7 +2,7 @@
 
 <ng-container *ngIf="selected; else refundList">
   <app-refund-form *ngIf="!selected.id" [commands]="commands"></app-refund-form>
-  <app-refund-detail *ngIf="selected.id" [refund]="selected" [commands]="commands"></app-refund-detail>
+  <app-expenses *ngIf="selected.id" [refund]="selected" [masterCommands]="commands"></app-expenses>
 </ng-container>
 
 <ng-template #refundList>

@@ -1,0 +1,35 @@
+<ng-container *ngIf="!readonly; else expensesReadOnly">
+  <mat-action-list class="expenseList__expenses">
+    <mat-list-item *ngFor="let expense of expenses" (click)="onSelect(expense)">
+      <img
+        matListAvatar
+        class="expenseList__receipt"
+        src="https://nayrontoledo.files.wordpress.com/2014/04/dcd4c-comprovanteqnadacomprova.jpg"
+      />
+      <div mat-line class="expenseList__expenseTypeValueWrapper">
+        <span>{{ expense.type }}</span>
+        <span>{{ expense.amount | number: '.2' }}</span>
+      </div>
+      <span mat-line class="expenseList__expenseDate">{{ expense.date | date }}</span>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-action-list>
+</ng-container>
+
+<ng-template #expensesReadOnly>
+  <mat-list class="expenseList__expenses">
+    <mat-list-item *ngFor="let expense of expenses">
+      <img
+        matListAvatar
+        class="expenseList__receipt"
+        src="https://nayrontoledo.files.wordpress.com/2014/04/dcd4c-comprovanteqnadacomprova.jpg"
+      />
+      <div mat-line class="expenseList__expenseTypeValueWrapper">
+        <span>{{ expense.type }}</span>
+        <span>{{ expense.amount | number: '.2' }}</span>
+      </div>
+      <span mat-line class="expenseList__expenseDate">{{ expense.date | date }}</span>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</ng-template>

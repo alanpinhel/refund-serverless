@@ -1,8 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
 
 import { Refund, MasterDetailCommands, Expense } from '@app/core'
-import { ExpenseDispatchers, ExpenseSelectors } from '@app/store'
 
 @Component({
   selector: 'app-refund-detail',
@@ -10,24 +8,11 @@ import { ExpenseDispatchers, ExpenseSelectors } from '@app/store'
   styleUrls: ['./refund-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundDetailComponent implements MasterDetailCommands<Expense>, OnInit {
+export class RefundDetailComponent {
   @Input() refund: Refund
   @Input() commands: MasterDetailCommands<Refund>
-
-  selected: Expense
-  subcommands = this
-
-  expenses$: Observable<Expense[]>
-  loading$: Observable<boolean>
-
-  constructor(private expenseSelectors: ExpenseSelectors, private expenseDispatchers: ExpenseDispatchers) {
-    this.expenses$ = this.expenseSelectors.expenses$
-    this.loading$ = this.expenseSelectors.loading$
-  }
-
-  ngOnInit() {
-    this.expenseDispatchers.getExpenses(this.refund.id)
-  }
+  @Input() subCommands: MasterDetailCommands<Expense>
+  @Input() expenses: Expense[]
 
   closeRefund() {
     this.commands.close()
@@ -43,31 +28,19 @@ export class RefundDetailComponent implements MasterDetailCommands<Expense>, OnI
     this.commands.update({ ...this.refund, status: 'confirmed' })
   }
 
+  disableConfirmRefund() {
+    return !this.expenses.length
+  }
+
   showActions() {
     return this.refund.status === 'draft'
   }
 
-  close() {
-    this.selected = null
-  }
-
-  add(expense: Expense) {
-    this.expenseDispatchers.addExpense(expense)
-  }
-
-  delete(expense: Expense) {
-    this.expenseDispatchers.deleteExpense(expense)
-  }
-
-  select(expense: Expense) {
-    this.selected = expense
-  }
-
-  update(expense: Expense) {
-    this.expenseDispatchers.updateExpense(expense)
+  calculateTotal() {
+    return this.expenses.reduce((acc, e) => acc + e.amount, 0)
   }
 
   enableAddMode() {
-    this.selected = <any>{}
+    this.subCommands.select(<any>{})
   }
 }

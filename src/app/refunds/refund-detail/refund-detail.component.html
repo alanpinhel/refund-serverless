@@ -19,7 +19,7 @@
         class="refundDetail__fabNewExpense"
         aria-label="New Expense"
         *ngIf="showActions()"
-        (click)="selectExpense.emit({})"
+        (click)="enableAddMode()"
       >
         <mat-icon>add</mat-icon>
       </button>
@@ -38,27 +38,49 @@
   </mat-toolbar>
 </ng-template>
 
-<ng-container *ngIf="expenses$ | async as expenses">
-  <footer class="refundDetail__footer">
-    <div class="refundDetail__descriptionWrapper">
-      <div class="refundDetail__infoWrapper">
-        <span class="refundDetail__infoLabel">Date</span>
-        <span class="refundDetail__infoValue">{{ refund.date | date }}</span>
-      </div>
+<ng-container *ngIf="expenses.length; else emptyExpenses">
+  <p class="refundDetail__amountExpenses">{{ expenses.length }} expenses in your refund</p>
+</ng-container>
 
-      <div class="refundDetail__infoWrapper">
-        <span class="refundDetail__infoLabel">Status</span>
-        <span class="refundDetail__infoValue">{{ refund.status }}</span>
-      </div>
+<ng-template #emptyExpenses>
+  <p class="refundDetail__amountExpenses">refund without expenses</p>
+</ng-template>
 
-      <div class="refundDetail__infoWrapper">
-        <span class="refundDetail__infoLabel">Reason</span>
-        <span class="refundDetail__infoValue">{{ refund.reason }}</span>
-      </div>
+<mat-divider></mat-divider>
+
+<app-expense-list [expenses]="expenses" [commands]="subCommands" [readonly]="!showActions()"></app-expense-list>
+
+<footer class="refundDetail__footer">
+  <div class="refundDetail__descriptionWrapper">
+    <div class="refundDetail__totalWrapper">
+      <span class="refundDetail__totalLabel">Total</span>
+      <span class="refundDetail__totalValue">{{ calculateTotal() | number: '.2' }}</span>
     </div>
 
-    <button mat-flat-button class="refundDetail__confirmButton" color="primary" *ngIf="showActions()" (click)="confirmRefund()">
-      Confirm
-    </button>
-  </footer>
-</ng-container>
+    <div class="refundDetail__infoWrapper">
+      <span class="refundDetail__infoLabel">Date</span>
+      <span class="refundDetail__infoValue">{{ refund.date | date }}</span>
+    </div>
+
+    <div class="refundDetail__infoWrapper">
+      <span class="refundDetail__infoLabel">Status</span>
+      <span class="refundDetail__infoValue">{{ refund.status }}</span>
+    </div>
+
+    <div class="refundDetail__infoWrapper">
+      <span class="refundDetail__infoLabel">Reason</span>
+      <span class="refundDetail__infoValue">{{ refund.reason }}</span>
+    </div>
+  </div>
+
+  <button
+    mat-flat-button
+    class="refundDetail__confirmButton"
+    color="primary"
+    *ngIf="showActions()"
+    (click)="confirmRefund()"
+    [disabled]="disableConfirmRefund()"
+  >
+    Confirm
+  </button>
+</footer>
