@@ -1,1 +1,24 @@
-<p>expense-detail works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button type="button" (click)="closeExpense()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="expenseDetail__toolbarTitle">Expense details</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<img class="expenseDetail__previewReceipt" src="https://nayrontoledo.files.wordpress.com/2014/04/dcd4c-comprovanteqnadacomprova.jpg" />
+
+<footer class="expenseDetail__footer">
+  <div class="expenseDetail__descriptionWrapper">
+    <div class="expenseDetail__typeDateWrapper">
+      <span class="expenseDetail__typeValue">{{ expense.type }}</span>
+      <span class="expenseDetail__dateValue">{{ expense.date | date }}</span>
+    </div>
+    <span class="expenseDetail__amountValue">{{ expense.amount | number: '.2' }}</span>
+  </div>
+
+  <button mat-stroked-button class="expenseDetail__removeButton" (click)="deleteExpense()">
+    Remove from Refund
+  </button>
+</footer>

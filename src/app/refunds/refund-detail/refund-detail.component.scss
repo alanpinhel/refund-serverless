@@ -36,9 +36,7 @@
     }
 
     &__footer {
-      padding-right: 16px;
-      padding-bottom: 16px;
-      padding-left: 16px;
+      padding: 16px;
       width: 100%;
       max-width: 425px;
       box-sizing: border-box;
@@ -52,7 +50,6 @@
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-top: 16px;
       margin-bottom: 16px;
     }
 
