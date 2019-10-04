@@ -1,6 +1,8 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core'
+import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
 
-import { Refund, Expense } from '@app/core'
+import { Refund, MasterDetailCommands, Expense } from '@app/core'
+import { ExpenseDispatchers, ExpenseSelectors } from '@app/store'
 
 @Component({
   selector: 'app-refund-detail',
@@ -8,13 +10,64 @@ import { Refund, Expense } from '@app/core'
   styleUrls: ['./refund-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundDetailComponent {
+export class RefundDetailComponent implements MasterDetailCommands<Expense>, OnInit {
   @Input() refund: Refund
-  @Input() showActions: boolean
-  @Input() disableActionConfirm: boolean
+  @Input() commands: MasterDetailCommands<Refund>
 
-  @Output() unselectRefund = new EventEmitter()
-  @Output() deleteRefund = new EventEmitter()
-  @Output() confirmRefund = new EventEmitter()
-  @Output() selectExpense = new EventEmitter<Expense>()
+  selected: Expense
+  subcommands = this
+
+  expenses$: Observable<Expense[]>
+  loading$: Observable<boolean>
+
+  constructor(private expenseSelectors: ExpenseSelectors, private expenseDispatchers: ExpenseDispatchers) {
+    this.expenses$ = this.expenseSelectors.expenses$
+    this.loading$ = this.expenseSelectors.loading$
+  }
+
+  ngOnInit() {
+    this.expenseDispatchers.getExpenses(this.refund.id)
+  }
+
+  closeRefund() {
+    this.commands.close()
+  }
+
+  deleteRefund() {
+    this.closeRefund()
+    this.commands.delete(this.refund)
+  }
+
+  confirmRefund() {
+    this.closeRefund()
+    this.commands.update({ ...this.refund, status: 'confirmed' })
+  }
+
+  showActions() {
+    return this.refund.status === 'draft'
+  }
+
+  close() {
+    this.selected = null
+  }
+
+  add(expense: Expense) {
+    this.expenseDispatchers.addExpense(expense)
+  }
+
+  delete(expense: Expense) {
+    this.expenseDispatchers.deleteExpense(expense)
+  }
+
+  select(expense: Expense) {
+    this.selected = expense
+  }
+
+  update(expense: Expense) {
+    this.expenseDispatchers.updateExpense(expense)
+  }
+
+  enableAddMode() {
+    this.selected = <any>{}
+  }
 }

@@ -1,32 +1,13 @@
 <app-loading *ngIf="loading$ | async"></app-loading>
 
-<ng-container *ngIf="selectedRefund; else refundList">
-  <app-refund-expense
-    *ngIf="selectedExpense; else refundDetail"
-    [expense]="selectedExpense"
-    [expenseInEditMode]="expenseInEditMode"
-    (unselectExpense)="handleUnselectExpense()"
-    (deleteExpense)="handleDeleteExpense()"
-    (saveExpense)="handleSaveExpense($event)"
-  ></app-refund-expense>
-
-  <ng-template #refundDetail>
-    <app-refund-detail
-      [refund]="selectedRefund"
-      [showActions]="showActions"
-      [disableActionConfirm]="disableActionConfirm"
-      (unselectRefund)="handleUnselectRefund()"
-      (deleteRefund)="handleDeleteRefund()"
-      (confirmRefund)="handleConfirmRefund()"
-      (selectExpense)="handleSelectExpense($event)"
-    ></app-refund-detail>
-  </ng-template>
+<ng-container *ngIf="selected; else refundList">
+  <app-refund-form *ngIf="!selected.id" [commands]="commands"></app-refund-form>
+  <app-refund-detail *ngIf="selected.id" [refund]="selected" [commands]="commands"></app-refund-detail>
 </ng-container>
 
 <ng-template #refundList>
-  <app-refund-list
-    [refunds]="refunds$ | async"
-    (newRefund)="handleNewRefund()"
-    (selectRefund)="handleSelectRefund($event)"
-  ></app-refund-list>
+  <app-refund-list [refunds]="refunds$ | async" [commands]="commands"></app-refund-list>
+  <button appAdjustPositionFAB mat-fab class="refunds__fabNewRefund" (click)="enableAddMode()">
+    <mat-icon>add</mat-icon>
+  </button>
 </ng-template>

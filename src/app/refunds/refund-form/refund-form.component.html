@@ -1,16 +1,20 @@
-<form #f="ngForm" (ngSubmit)="f.valid && dialogRef.close(reason)">
-  <h1 mat-dialog-title>New Refund</h1>
+<form [formGroup]="form" (ngSubmit)="saveRefund()">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button type="button" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <span class="refundForm__toolbarTitle">New Refund</span>
+      <span class="refundForm__spacer"></span>
+      <button mat-button class="refundForm__saveButton" type="submit">Save</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-  <div mat-dialog-content>
-    <p>To create a refund draft, enter the reason.</p>
+  <main class="refundForm__main">
+    <p class="refundForm__description">To create a refund draft, enter the reason.</p>
     <mat-form-field class="refundForm__formField">
-      <input matInput required name="reason" placeholder="Reason" [(ngModel)]="reason" />
+      <input #reason matInput required formControlName="reason" placeholder="Reason" (keyup.esc)="close()" />
       <mat-error>You must enter a value</mat-error>
     </mat-form-field>
-  </div>
-
-  <div mat-dialog-actions align="end">
-    <button mat-button color="primary" class="refundForm__button" type="button" mat-dialog-close>Cancel</button>
-    <button mat-button color="primary" class="refundForm__button" type="submit">Save</button>
-  </div>
+  </main>
 </form>
