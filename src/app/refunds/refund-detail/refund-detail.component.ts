@@ -13,6 +13,7 @@ export class RefundDetailComponent {
   @Input() commands: MasterDetailCommands<Refund>
   @Input() subCommands: MasterDetailCommands<Expense>
   @Input() expenses: Expense[]
+  @Input() readonly: boolean
 
   closeRefund() {
     this.commands.close()
@@ -30,10 +31,6 @@ export class RefundDetailComponent {
 
   disableConfirmRefund() {
     return !this.expenses.length
-  }
-
-  showActions() {
-    return this.refund.status === 'draft'
   }
 
   calculateTotal() {

@@ -18,7 +18,7 @@
     <span class="expenseDetail__amountValue">{{ expense.amount | number: '.2' }}</span>
   </div>
 
-  <button mat-stroked-button class="expenseDetail__removeButton" (click)="deleteExpense()">
+  <button mat-stroked-button class="expenseDetail__removeButton" *ngIf="!readonly" (click)="deleteExpense()">
     Remove from Refund
   </button>
 </footer>

@@ -1,10 +1,10 @@
-<ng-container *ngIf="showActions(); else toolbarWithoutActions">
+<ng-container *ngIf="!readonly; else toolbarReadonly">
   <mat-toolbar class="refundDetail__toolbar" color="primary">
     <mat-toolbar-row class="refundDetail__toolbarRowActions">
       <button mat-icon-button (click)="closeRefund()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="showActions()" (click)="deleteRefund()">
+      <button mat-icon-button (click)="deleteRefund()">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-toolbar-row>
@@ -13,21 +13,14 @@
   <mat-toolbar class="refundDetail__toolbar refundDetail__toolbar--priority" color="primary">
     <mat-toolbar-row>
       <span class="refundDetail__toolbarTitle">Refund details</span>
-      <button
-        mat-mini-fab
-        color=""
-        class="refundDetail__fabNewExpense"
-        aria-label="New Expense"
-        *ngIf="showActions()"
-        (click)="enableAddMode()"
-      >
+      <button mat-mini-fab color="" class="refundDetail__fabNewExpense" aria-label="New Expense" (click)="enableAddMode()">
         <mat-icon>add</mat-icon>
       </button>
     </mat-toolbar-row>
   </mat-toolbar>
 </ng-container>
 
-<ng-template #toolbarWithoutActions>
+<ng-template #toolbarReadonly>
   <mat-toolbar class="refundDetail__toolbar" color="primary">
     <mat-toolbar-row>
       <button mat-icon-button (click)="closeRefund()">
@@ -48,7 +41,7 @@
 
 <mat-divider></mat-divider>
 
-<app-expense-list [expenses]="expenses" [commands]="subCommands" [readonly]="!showActions()"></app-expense-list>
+<app-expense-list [expenses]="expenses" [commands]="subCommands"></app-expense-list>
 
 <footer class="refundDetail__footer">
   <div class="refundDetail__descriptionWrapper">
@@ -77,7 +70,7 @@
     mat-flat-button
     class="refundDetail__confirmButton"
     color="primary"
-    *ngIf="showActions()"
+    *ngIf="!readonly"
     (click)="confirmRefund()"
     [disabled]="disableConfirmRefund()"
   >

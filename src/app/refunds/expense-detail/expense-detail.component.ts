@@ -11,6 +11,7 @@ import { MasterDetailCommands, Expense } from '@app/core'
 export class ExpenseDetailComponent {
   @Input() expense: Expense
   @Input() commands: MasterDetailCommands<Expense>
+  @Input() readonly: boolean
 
   closeExpense() {
     this.commands.close()

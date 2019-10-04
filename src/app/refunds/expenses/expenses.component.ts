@@ -47,4 +47,8 @@ export class ExpensesComponent implements MasterDetailCommands<Expense>, OnInit 
   update(expense: Expense) {
     this.expenseDispatchers.updateExpense(expense)
   }
+
+  hideActions() {
+    return this.refund.status !== 'draft'
+  }
 }

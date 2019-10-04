@@ -11,7 +11,6 @@ import { Expense, MasterDetailCommands } from '@app/core'
 export class ExpenseListComponent {
   @Input() expenses: Expense[]
   @Input() commands: MasterDetailCommands<Expense>
-  @Input() readonly: boolean
 
   onSelect(expense: Expense) {
     this.commands.select(expense)
