@@ -1,17 +1,19 @@
-<app-loading *ngIf="loading$ | async"></app-loading>
+<app-loading *ngIf="loading$ | async; else content"></app-loading>
 
-<ng-container *ngIf="selected; else refundDetail">
-  <app-expense-form *ngIf="!selected.id" [commands]="commands"></app-expense-form>
-  <app-expense-detail *ngIf="selected.id" [expense]="selected" [commands]="commands" [readonly]="hideActions()"></app-expense-detail>
-</ng-container>
+<ng-template #content>
+  <ng-container *ngIf="selected; else refundDetail">
+    <app-expense-form *ngIf="!selected.id" [commands]="commands"></app-expense-form>
+    <app-expense-detail *ngIf="selected.id" [expense]="selected" [commands]="commands" [readonly]="hideActions()"></app-expense-detail>
+  </ng-container>
 
-<ng-template #refundDetail>
-  <app-refund-detail
-    *ngIf="refund.id"
-    [refund]="refund"
-    [commands]="masterCommands"
-    [expenses]="expenses$ | async"
-    [subCommands]="commands"
-    [readonly]="hideActions()"
-  ></app-refund-detail>
+  <ng-template #refundDetail>
+    <app-refund-detail
+      *ngIf="refund.id"
+      [refund]="refund"
+      [commands]="masterCommands"
+      [expenses]="expenses$ | async"
+      [subCommands]="commands"
+      [readonly]="hideActions()"
+    ></app-refund-detail>
+  </ng-template>
 </ng-template>
