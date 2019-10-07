@@ -3,7 +3,7 @@
 </mat-toolbar>
 
 <mat-action-list class="refundList__refunds">
-  <mat-list-item *ngFor="let refund of refunds" (click)="onSelect(refund)">
+  <mat-list-item *ngFor="let refund of refunds; trackBy: byId" (click)="onSelect(refund)">
     <img matListAvatar [src]="'assets/' + refund.status + '.svg'" [alt]="refund.status" />
     <h4 mat-line>{{ refund.reason }}</h4>
     <p mat-line>{{ refund.date | date }}</p>

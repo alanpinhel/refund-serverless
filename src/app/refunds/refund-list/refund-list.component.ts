@@ -15,4 +15,8 @@ export class RefundListComponent {
   onSelect(refund: Refund) {
     this.commands.select(refund)
   }
+
+  byId(refund: Refund) {
+    return refund.id
+  }
 }

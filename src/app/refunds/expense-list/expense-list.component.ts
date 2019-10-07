@@ -15,4 +15,8 @@ export class ExpenseListComponent {
   onSelect(expense: Expense) {
     this.commands.select(expense)
   }
+
+  byId(expense: Expense) {
+    return expense.id
+  }
 }

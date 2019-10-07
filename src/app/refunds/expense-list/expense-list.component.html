@@ -1,5 +1,5 @@
 <mat-action-list class="expenseList__expenses">
-  <mat-list-item *ngFor="let expense of expenses" (click)="onSelect(expense)">
+  <mat-list-item *ngFor="let expense of expenses; trackBy: byId" (click)="onSelect(expense)">
     <img
       matListAvatar
       class="expenseList__receipt"
