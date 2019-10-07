@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core'
+import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core'
 
 import { Refund, MasterDetailCommands, Expense } from '@app/core'
 
@@ -8,12 +8,16 @@ import { Refund, MasterDetailCommands, Expense } from '@app/core'
   styleUrls: ['./refund-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundDetailComponent {
+export class RefundDetailComponent implements OnInit {
   @Input() refund: Refund
   @Input() commands: MasterDetailCommands<Refund>
   @Input() subCommands: MasterDetailCommands<Expense>
   @Input() expenses: Expense[]
   @Input() readonly: boolean
+
+  ngOnInit() {
+    this.expenses = this.expenses.filter(e => e.refund === this.refund.id)
+  }
 
   closeRefund() {
     this.commands.close()
