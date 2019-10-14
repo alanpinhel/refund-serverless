@@ -1,24 +1,18 @@
-<p>expense-form works!</p>
-
-<!-- <form #f="ngForm" (ngSubmit)="f.valid && saveExpense.emit(expenseDataForm)">
+<form [formGroup]="form" (ngSubmit)="saveExpense()">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <button mat-icon-button type="button" (click)="unselectExpense.emit()">
+      <button mat-icon-button type="button" (click)="close()">
         <mat-icon>close</mat-icon>
       </button>
-      <span class="refundExpense__toolbarTitle">Expense</span>
+      <span class="refundExpense__toolbarTitle">New Expense</span>
       <span class="refundExpense__spacer"></span>
       <button mat-button class="refundExpense__saveButton" type="submit">Save</button>
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div class="refundExpense__previewReceipt">
-    <mat-icon class="refundExpense__cameraIcon">add_a_photo</mat-icon>
-  </div>
-
   <main class="refundExpense__main">
     <mat-form-field class="refundExpense__formField">
-      <input matInput required name="date" placeholder="Date" [matDatepicker]="picker" [(ngModel)]="expenseDataForm.date" />
+      <input #date matInput required formControlName="date" placeholder="Date" [matDatepicker]="picker" (keyup.esc)="close()" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker touchUi #picker></mat-datepicker>
       <mat-error>You must enter a value</mat-error>
@@ -26,7 +20,7 @@
 
     <mat-form-field class="refundExpense__formField">
       <mat-label>Type</mat-label>
-      <mat-select name="type" [(ngModel)]="expenseDataForm.type">
+      <mat-select required formControlName="type" (keyup.esc)="close()">
         <mat-option value="lunch">Lunch</mat-option>
         <mat-option value="dinner">Dinner</mat-option>
       </mat-select>
@@ -37,18 +31,13 @@
       <input
         matInput
         required
-        class="refundExpense__inputValue"
-        name="value"
-        placeholder="Value"
+        formControlName="amount"
+        class="refundExpense__inputAmount"
+        placeholder="Amount"
         type="number"
-        [(ngModel)]="expenseDataForm.value"
+        (keyup.esc)="close()"
       />
-      <span matPrefix>$&nbsp;</span>
       <mat-error>You must enter a value</mat-error>
     </mat-form-field>
-
-    <button mat-stroked-button *ngIf="expenseInEditMode" class="refundExpense__removeButton" type="button" (click)="deleteExpense.emit()">
-      Remove from Refund
-    </button>
   </main>
-</form> -->
+</form>
